@@ -1,2 +1,53 @@
-   </form>
+"table-wrap"><table class="progress-table"><thead><tr><th>Étudiant</th><th>Progression</th><th>Moyenne</th><th>Temps</th><th>Cartes</th><th>Cas</th><th>Dernière activité</th><th>Détail</th></tr></thead><tbody id="admin-student-rows"></tbody></table></div>
+              <div id="admin-student-detail" class="student-detail" hidden></div>
+            </article>
+            <article class="admin-panel">
+              <div class="section-title"><span>Modules à renforcer</span><small>moyenne collective</small></div>
+              <div id="admin-module-list" class="admin-module-list"></div>
+            </article>
+          </div>
+          <p class="privacy-note">Données collectées : prénom choisi, promotion et progression pédagogique. Aucun nom de famille, courriel ou renseignement médical n’est demandé.</p>
+        </div>
+      </section>
+      <details class="source-note">
+        <summary>Références et limites du prototype</summary>
+        <p>Corpus principal : 36 supports UE 2.5 transmis par l’étudiant. Les synthèses doivent rester confrontées aux recommandations et protocoles à jour.</p>
+        <div>
+          <a href="https://www.has-sante.fr/" target="_blank" rel="noreferrer">Haute Autorité de santé</a>
+          <a href="https://recospilf.infectiologie.com/" target="_blank" rel="noreferrer">SPILF · recommandations</a>
+          <a href="https://www.santepubliquefrance.fr/" target="_blank" rel="noreferrer">Santé publique France</a>
+          <a href="https://sante.gouv.fr/prevention-en-sante/preserver-sa-sante/vaccination/article/calendrier-vaccinal" target="_blank" rel="noreferrer">Calendrier vaccinal 2026 · Ministère</a>
+          <a href="https://www.santepubliquefrance.fr/tuberculose" target="_blank" rel="noreferrer">Santé publique France · Tuberculose</a>
+          <a href="https://www.has-sante.fr/jcms/p_3536535/fr/traitement-preventif-post-exposition-au-vih" target="_blank" rel="noreferrer">HAS · TPE VIH</a>
+        </div>
+      </details>
+      <footer>Prototype pédagogique — ne remplace pas une décision clinique ni les protocoles de l'établissement.</footer>
+      <nav class="mobile-nav" aria-label="Navigation mobile">
+        <button class="mobile-nav-item active" data-mobile-view="home">Accueil</button>
+        <button class="mobile-nav-item" data-mobile-view="diagnostic">Test</button>
+        <button class="mobile-nav-item" data-mobile-view="learn">Réviser</button>
+        <button class="mobile-nav-item" data-mobile-view="case">Cas</button>
+        <button class="mobile-nav-item" data-mobile-view="results">Progrès</button>
+        <button class="mobile-nav-item" data-mobile-view="admin">Admin</button>
+      </nav>
+    </main>
+  </div>
+  <div class="join-gate" id="join-gate" hidden>
+    <div class="login-visual" role="img" aria-label="Illustration médicale des principaux processus infectieux">
+<svg class="login-visual-svg" viewBox="0 0 520 390" aria-hidden="true"><defs><linearGradient id="loginBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f9188"/><stop offset="1" stop-color="#071d35"/></linearGradient></defs><rect width="520" height="390" rx="36" fill="url(#loginBg)"/><g opacity=".3" fill="none" stroke="#d9f66f" stroke-width="5"><circle cx="92" cy="92" r="34"/><circle cx="430" cy="88" r="26"/><circle cx="425" cy="305" r="38"/></g><path d="M260 76c57 36 96 41 118 42v84c0 76-50 118-118 144-68-26-118-68-118-144v-84c22-1 61-6 118-42Z" fill="#d9f66f" opacity=".95"/><path d="M260 132v124M198 194h124" stroke="#071d35" stroke-width="27" stroke-linecap="round"/></svg>
+      <div class="login-visual-copy"><span>UE 2.5 · S3</span><strong>Comprendre l’infection.<br>Prévenir et agir.</strong></div>
+    </div>
+    <form class="join-card" id="join-form">
+      <div class="brand join-brand"><span class="brand-mark">+</span><span>IFSI <b>Coach</b></span></div>
+      <span class="eyebrow accent">PROMOTION SAINTES 2025–2028</span>
+      <h1>Processus infectieux.</h1>
+      <p>Connecte-toi avec ton prénom. Ta progression reste enregistrée pour cette UE, affichée dans ton espace et synthétisée dans l’espace administrateur.</p>
+      <label>Identifiant étudiant<input id="join-name" name="firstName" autocomplete="username" maxlength="30" placeholder="Ton prénom" required></label>
+      <label>Mot de passe<input id="join-cohort" name="password" type="password" autocomplete="current-password" placeholder="Mot de passe de la promotion" required></label>
+      <label class="consent"><input id="join-consent" type="checkbox" required><span>J’accepte l’enregistrement de mon prénom choisi et de ma progression pédagogique pour ce test.</span></label>
+      <div id="join-error" class="form-error" role="alert"></div>
+      <button class="primary-btn" type="submit">Accéder à l’UE 2.5 <span>→</span></button>
+      <a class="admin-login-link" href="./admin/" target="_top">Accès administrateur Alexandre</a>
+      <small>Prototype pédagogique · aucune donnée de santé n’est collectée.</small>
+    </form>
   </div>
