@@ -1,0 +1,99 @@
+(function(){
+const SB='https://bzmwtjkjuihbrhiumdul.supabase.co';
+const nativeFetch=window.fetch.bind(window);
+let KEY='';
+const PASS_HASH='ce648e12e308d162485b9eafcf3ad2f800950eabfc9abfaf3fc7e99aa61be119';
+const configReady=nativeFetch('https://ifsi-coach-ue28-sync.vercel.app/app.js?cfg=1',{cache:'no-store'}).then(r=>r.text()).then(t=>{const m=t.match(/const KEY='([^']+)'/);if(!m)throw new Error('configuration indisponible');KEY=m[1]});
+const SESSION='ifsi-coach-ue25-participant-v4';
+const OLD=['ifsi-coach-ue25-participant-v2','ifsi-coach-ue25-participant-v3'];
+const ADMIN='https://ifsi-coach-admin.vercel.app/#ue25';
+let validationMap={},legacyValidated=[],validationLoadedFor=null,notifications=[];
+if(location.hash==='#admin'){ location.replace(ADMIN); return; }
+try{ OLD.forEach(k=>localStorage.removeItem(k)); }catch{}
+const now=()=>new Date().toISOString();
+const norm=v=>(v||'').trim().replace(/s+/g,' ').toLocaleLowerCase('fr');
+const clean=v=>(v||'').trim().replace(/s+/g,' ').slice(0,30);
+const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
+async function rest(path,init={}){
+await configReady;
+const r=await nativeFetch(SB+'/rest/v1/'+path,{...init,cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json','Cache-Control':'no-cache',...(init.headers||{})}});
+const t=await r.text();
+if(!r.ok) throw new Error(t||String(r.status));
+return t?JSON.parse(t):null;
+}
+function getLocal(){try{return JSON.parse(localStorage.getItem(SESSION)||'null')}catch{return null}}
+function setLocal(p){try{localStorage.setItem(SESSION,JSON.stringify(p))}catch{}}
+function clearLocal(){try{localStorage.removeItem(SESSION);OLD.forEach(k=>localStorage.removeItem(k))}catch{}}
+async function findStudentByName(name){
+const key=norm(name);
+const rows=await rest('students?select=*&first_name_key=eq.'+encodeURIComponent(key)+'&limit=1');
+return rows?.[0]||null;
+}
+async function getStudent(id){
+const rows=await rest('students?select=*&id=eq.'+encodeURIComponent(id)+'&limit=1');
+return rows?.[0]||null;
+}
+async function ensureProgress(studentId,touch=true){
+let rows=await rest('ue25_progress?select=*&student_id=eq.'+encodeURIComponent(studentId)+'&limit=1');
+let p=rows?.[0]||null;
+const ts=now();
+if(!p){
+const created=await rest('ue25_progress?select=*',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify({student_id:studentId,last_seen_at:ts,updated_at:ts})});
+p=created?.[0]||null;
+}else if(touch){
+const updated=await rest('ue25_progress?student_id=eq.'+encodeURIComponent(studentId)+'&select=*',{method:'PATCH',headers:{Prefer:'return=representation'},body:JSON.stringify({last_seen_at:ts,updated_at:ts})});
+p=updated?.[0]||p;
+}
+return p;
+}
+function toState(p){return {moduleScores:p?.module_scores||{},cardsSeen:Array.isArray(p?.cards_seen)?p.cards_seen:[],casesDone:Array.isArray(p?.cases_done)?p.cases_done:[],lastDiagnosticTopic:p?.last_diagnostic_topic||null,moduleValidations:p?.module_validations||{}};}
+async function passOK(value){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value||''));const h=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');return h===PASS_HASH}
+async function join(body){
+if(!(await passOK(body?.password))) return json({error:'Mot de passe incorrect.'},401);
+try{sessionStorage.setItem('ifsi-coach-ue25-pass',body.password||'')}catch{}
+const name=clean(body?.firstName);
+if(name.length<2) return json({error:'Prénom requis.'},400);
+let s=await findStudentByName(name),ts=now();
+if(!s){
+try{
+const created=await rest('students?select=*',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify({first_name:name,first_name_key:norm(name),cohort:'Saintes 25-28',first_login_at:ts,last_login_at:ts})});
+s=created?.[0]||null;
+}catch(e){
+s=await findStudentByName(name);
+if(!s) throw e;
+}
+}
+if(!s) return json({error:'Création du compte impossible.'},500);
+const up=await rest('students?id=eq.'+encodeURIComponent(s.id)+'&select=*',{method:'PATCH',headers:{Prefer:'return=representation'},body:JSON.stringify({last_login_at:ts,updated_at:ts})});
+s=up?.[0]||s;
+const p=await ensureProgress(s.id,true);
+const participant={id:s.id,studentId:s.id,firstName:s.first_name,cohortLabel:s.cohort||'Saintes 25–28'};
+setLocal(participant);
+validationLoadedFor=null;
+setTimeout(()=>{loadValidationMap(true).catch(()=>{});loadNotifications().catch(()=>{})},0);
+return json({participant,state:toState(p)});
+}
+async function session(){
+const part=getLocal();
+if(!part?.id) return json({error:'signin_required'},401);
+const s=await getStudent(part.id);
+if(!s){clearLocal();return json({error:'signin_required'},401)}
+const p=await ensureProgress(s.id,true);
+const participant={id:s.id,studentId:s.id,firstName:s.first_name,cohortLabel:s.cohort||'Saintes 25–28'};
+setLocal(participant);
+validationLoadedFor=null;
+setTimeout(()=>{loadValidationMap(true).catch(()=>{});loadNotifications().catch(()=>{})},0);
+return json({participant,state:toState(p)});
+}
+async function progress(body){
+const part=getLocal(); if(!part?.id) return json({error:'signin_required'},401);
+const p=await ensureProgress(part.id,false),ts=now();
+const patch={module_scores:body?.moduleScores||{},cards_seen:Array.isArray(body?.cardsSeen)?body.cardsSeen:[],cases_done:Array.isArray(body?.casesDone)?body.casesDone:[],last_diagnostic_topic:body?.lastDiagnosticTopic||null,last_seen_at:ts,updated_at:ts};
+await rest('ue25_progress?student_id=eq.'+encodeURIComponent(part.id),{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify(patch)});
+if(body?.attemptedTopic){
+const mod=body.attemptedTopic,latest=Number(body?.moduleScores?.[mod]);
+if(Number.isFinite(latest)){
+const rows=await rest('ue25_scores?select=*&student_id=eq.'+encodeURIComponent(part.id)+'&module=eq.'+encodeURIComponent(mod)+'&limit=1');
+const old=rows?.[0];
+if(old){
+await rest('ue25_scores?student_id=eq.'+encodeURIComponent(part
