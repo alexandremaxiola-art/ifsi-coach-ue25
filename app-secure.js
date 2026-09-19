@@ -4,7 +4,7 @@ const nativeFetch=window.fetch.bind(window);
 const API=SB+'/functions/v1/coach-api';
 const SESSION='ifsi-coach-ue25-participant-v4';
 const TOKEN_KEY='ifsi-coach-secure-token-v1';
-const OLD=['ifsi-coach-ue25-participant-v2','ifsi-coach-ue25-participant-v3'];
+try{localStorage.removeItem(SESSION);localStorage.removeItem(TOKEN_KEY)}catch{};const OLD=['ifsi-coach-ue25-participant-v2','ifsi-coach-ue25-participant-v3'];
 const ADMIN='./admin/';
 let validationMap={},legacyValidated=[],validationLoadedFor=null,notifications=[];
 if(location.hash==='#admin'){ location.replace(ADMIN); return; }
@@ -20,10 +20,10 @@ const t=await r.text();
 if(!r.ok) throw new Error(t||String(r.status));
 return t?JSON.parse(t):null;
 }
-function getLocal(){try{return JSON.parse(localStorage.getItem(SESSION)||'null')}catch{return null}}
-function getToken(){try{return localStorage.getItem(TOKEN_KEY)||''}catch{return ''}}
-function setLocal(p,token){try{localStorage.setItem(SESSION,JSON.stringify(p));if(token)localStorage.setItem(TOKEN_KEY,token)}catch{}}
-function clearLocal(){try{localStorage.removeItem(SESSION);localStorage.removeItem(TOKEN_KEY);OLD.forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('ifsi-coach-ue25-pass')}catch{}}
+function getLocal(){try{return JSON.parse(sessionStorage.getItem(SESSION)||'null')}catch{return null}}
+function getToken(){try{return sessionStorage.getItem(TOKEN_KEY)||''}catch{return ''}}
+function setLocal(p,token){try{sessionStorage.setItem(SESSION,JSON.stringify(p));if(token)sessionStorage.setItem(TOKEN_KEY,token)}catch{}}
+function clearLocal(){try{sessionStorage.removeItem(SESSION);localStorage.removeItem(SESSION);sessionStorage.removeItem(TOKEN_KEY);localStorage.removeItem(TOKEN_KEY);OLD.forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('ifsi-coach-ue25-pass')}catch{}}
 async function secureCall(action,body={}){
   const token=getToken();
   const r=await nativeFetch(API,{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json','Cache-Control':'no-cache',...(token?{'x-coach-session':token}:{})},body:JSON.stringify({action,...body})});
