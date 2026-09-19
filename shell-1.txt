@@ -57,7 +57,7 @@
         <div class="proof-row metrics">
           <div><span>MAÎTRISE GLOBALE</span><strong id="home-score">À évaluer</strong></div>
           <div><span>QUESTIONS TRAITÉES</span><strong id="home-questions">0</strong></div>
-          <div><span>CARTES RÉVISÉES</span><strong id="home-cards">0 / 8</strong></div>
+          <div><span>CARTES RÉVISÉES</span><strong id="home-cards">0 / 200</strong></div>
         </div>
       </section>
       <section id="learn" class="view">
@@ -72,7 +72,7 @@
           <div class="study-layout">
             <div class="lesson-panel" id="lesson-panel"></div>
             <div class="flash-zone">
-              <div class="flash-meta"><span id="flash-progress">Carte 1 / 8</span><button id="shuffle-btn" class="text-btn">Mélanger</button></div>
+              <div class="flash-meta"><span id="flash-progress">Carte 1 / 10</span><button id="shuffle-btn" class="text-btn">Mélanger</button></div>
               <button class="flashcard" id="flashcard" aria-label="Retourner la carte">
                 <span class="eyebrow">QUESTION</span><strong id="flash-front"></strong><span id="flash-back" hidden></span><small>Cliquer pour retourner</small>
               </button>
