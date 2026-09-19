@@ -1,4 +1,58 @@
-.app/#ue25" target="_top">Connexion administrateur <span>→</span></a>
+iz-progress"><span id="progress-label">Question 1 sur 10</span><div><i id="progress-bar"></i></div></div>
+          <span id="topic-chip" class="topic-chip">Syndrome coronarien aigu</span>
+        </div>
+        <div class="quiz-layout">
+          <article class="question-card">
+            <span id="question-kicker" class="eyebrow accent">SURVEILLANCE IDE</span>
+            <h2 id="question-text"></h2>
+            <div id="answers" class="answers"></div>
+            <div id="feedback" class="feedback" aria-live="polite"></div>
+            <div class="quiz-actions">
+              <button id="skip-btn" class="text-btn">Je ne sais pas</button>
+              <button id="next-btn" class="primary-btn" disabled>Valider la réponse</button>
+            </div>
+          </article>
+          <aside class="focus-card">
+            <span class="eyebrow">TA MISSION</span>
+            <h3>Réponds sans regarder tes cours.</h3>
+            <p>L'objectif n'est pas d'avoir une bonne note, mais de trouver précisément ce qui mérite d'être retravaillé.</p>
+            <div class="focus-tip"><b>Conseil</b><span>Lis toutes les propositions avant de répondre.</span></div>
+          </aside>
+        </div>
+      </section>
+      <section id="results" class="view">
+        <div class="results-head">
+          <div><span class="eyebrow accent">DIAGNOSTIC TERMINÉ</span><h1>Ton plan est prêt.</h1><p id="result-copy">Tes priorités de révision apparaissent ici.</p></div>
+          <div class="score-ring" id="score-ring"><div><strong id="score-value">—</strong><small>score global</small></div></div>
+        </div>
+        <div class="results-grid">
+          <article class="mastery-card">
+            <div class="section-title"><span>Maîtrise par thème</span><small>mise à jour maintenant</small></div>
+            <div id="mastery-list"></div>
+          </article>
+          <article class="plan-card">
+            <span class="pill dark">PLAN PERSONNALISÉ</span>
+            <h2 id="priority-title">Commence le diagnostic</h2>
+            <p id="priority-copy">Tes résultats permettront d'identifier les deux thèmes à revoir en priorité.</p>
+            <div id="plan-items" class="plan-items"></div>
+            <button id="review-btn" class="primary-btn">Réviser ma priorité <span>→</span></button>
+          </article>
+        </div>
+        <div class="action-strip">
+          <div><b>Prochain rappel</b><span>Dans 48 heures · 10 questions ciblées</span></div>
+          <button id="restart-btn" class="ghost-btn">Refaire le diagnostic</button>
+        </div>
+      </section>
+      <section id="admin" class="view">
+        <div class="section-hero compact">
+          <div><span class="eyebrow accent">ESPACE ADMINISTRATEUR</span><h1>Progression de la promo.</h1><p>Vue nominative réservée à Alexandre. L’interface étudiante n’affiche pas les résultats des autres membres de la promotion.</p></div>
+          <button id="admin-refresh" class="ghost-btn">Actualiser</button>
+        </div>
+        <div id="admin-auth" class="admin-auth" hidden>
+          <span class="pill dark">ACCÈS PROTÉGÉ</span>
+          <h2>Connecte-toi avec ton compte ChatGPT</h2>
+          <p>Cette vérification permet de réserver les résultats de la promotion à l’administrateur du site.</p>
+          <a class="primary-btn" href="./admin/" target="_top">Connexion administrateur <span>→</span></a>
         </div>
         <div id="admin-denied" class="admin-auth" hidden>
           <span class="pill dark">ACCÈS REFUSÉ</span><h2>Espace réservé à Alexandre</h2><p>Le compte connecté n’est pas autorisé à consulter les résultats nominatifs.</p>
@@ -22,54 +76,4 @@
           <div class="admin-layout">
             <article class="admin-panel">
               <div class="section-title"><span>Suivi nominatif</span><small id="admin-updated">mise à jour maintenant</small></div>
-              <div class="table-wrap"><table class="progress-table"><thead><tr><th>Étudiant</th><th>Progression</th><th>Moyenne</th><th>Temps</th><th>Cartes</th><th>Cas</th><th>Dernière activité</th><th>Détail</th></tr></thead><tbody id="admin-student-rows"></tbody></table></div>
-              <div id="admin-student-detail" class="student-detail" hidden></div>
-            </article>
-            <article class="admin-panel">
-              <div class="section-title"><span>Modules à renforcer</span><small>moyenne collective</small></div>
-              <div id="admin-module-list" class="admin-module-list"></div>
-            </article>
-          </div>
-          <p class="privacy-note">Données collectées : prénom choisi, promotion et progression pédagogique. Aucun nom de famille, courriel ou renseignement médical n’est demandé.</p>
-        </div>
-      </section>
-      <details class="source-note">
-        <summary>Références et limites du prototype</summary>
-        <p>Corpus principal : 36 supports UE 2.5 transmis par l’étudiant. Les synthèses doivent rester confrontées aux recommandations et protocoles à jour.</p>
-        <div>
-          <a href="https://www.has-sante.fr/" target="_blank" rel="noreferrer">Haute Autorité de santé</a>
-          <a href="https://recospilf.infectiologie.com/" target="_blank" rel="noreferrer">SPILF · recommandations</a>
-          <a href="https://www.santepubliquefrance.fr/" target="_blank" rel="noreferrer">Santé publique France</a>
-          <a href="https://sante.gouv.fr/prevention-en-sante/preserver-sa-sante/vaccination/article/calendrier-vaccinal" target="_blank" rel="noreferrer">Calendrier vaccinal 2026 · Ministère</a>
-          <a href="https://www.santepubliquefrance.fr/tuberculose" target="_blank" rel="noreferrer">Santé publique France · Tuberculose</a>
-          <a href="https://www.has-sante.fr/jcms/p_3536535/fr/traitement-preventif-post-exposition-au-vih" target="_blank" rel="noreferrer">HAS · TPE VIH</a>
-        </div>
-      </details>
-      <footer>Prototype pédagogique — ne remplace pas une décision clinique ni les protocoles de l'établissement.</footer>
-      <nav class="mobile-nav" aria-label="Navigation mobile">
-        <button class="mobile-nav-item active" data-mobile-view="home">Accueil</button>
-        <button class="mobile-nav-item" data-mobile-view="diagnostic">Test</button>
-        <button class="mobile-nav-item" data-mobile-view="learn">Réviser</button>
-        <button class="mobile-nav-item" data-mobile-view="case">Cas</button>
-        <button class="mobile-nav-item" data-mobile-view="results">Progrès</button>
-        <button class="mobile-nav-item" data-mobile-view="admin">Admin</button>
-      </nav>
-    </main>
-  </div>
-  <div class="join-gate" id="join-gate" hidden>
-    <div class="login-visual" role="img" aria-label="Illustration médicale des principaux processus infectieux">
-      <div class="login-visual-copy"><span>UE 2.5 · S3</span><strong>Comprendre l’infection.<br>Prévenir et agir.</strong></div>
-    </div>
-    <form class="join-card" id="join-form">
-      <div class="brand join-brand"><span class="brand-mark">+</span><span>IFSI <b>Coach</b></span></div>
-      <span class="eyebrow accent">PROMOTION SAINTES 2025–2028</span>
-      <h1>Processus infectieux.</h1>
-      <p>Connecte-toi avec ton prénom. Ta progression reste enregistrée pour cette UE, affichée dans ton espace et synthétisée dans l’espace administrateur.</p>
-      <label>Identifiant étudiant<input id="join-name" name="firstName" autocomplete="username" maxlength="30" placeholder="Ton prénom" required></label>
-      <label>Mot de passe<input id="join-cohort" name="password" type="password" autocomplete="current-password" placeholder="Mot de passe de la promotion" required></label>
-      <label class="consent"><input id="join-consent" type="checkbox" required><span>J’accepte l’enregistrement de mon prénom choisi et de ma progression pédagogique pour ce test.</span></label>
-      <div id="join-error" class="form-error" role="alert"></div>
-      <button class="primary-btn" type="submit">Accéder à l’UE 2.5 <span>→</span></button>
-      <a class="admin-login-link" href="./admin/" target="_top">Accès administrateur Alexandre</a>
-      <small>Prototype pédagogique · aucune donnée de santé n’est collectée.</small>
- 
+              <div class=
