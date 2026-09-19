@@ -1,0 +1,95 @@
+.id)+'&module=eq.'+encodeURIComponent(mod),{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({latest,best:Math.max(Number(old.best)||0,latest),attempts:(Number(old.attempts)||0)+1,updated_at:ts})});
+}else{
+await rest('ue25_scores',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({student_id:part.id,module:mod,latest,best:latest,attempts:1,updated_at:ts})});
+}
+}
+}
+return json({ok:true});
+}
+async function heartbeat(){
+const part=getLocal(); if(!part?.id) return json({error:'signin_required'},401);
+const p=await ensureProgress(part.id,false),ts=now();
+await rest('ue25_progress?student_id=eq.'+encodeURIComponent(part.id),{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({total_seconds:(Number(p?.total_seconds)||0)+30,last_seen_at:ts,updated_at:ts})});
+return json({ok:true});
+}
+async function validate(method,body){
+const part=getLocal(); if(!part?.id) return json({error:'signin_required'},401);
+const p=await ensureProgress(part.id,false); let list=Array.isArray(p?.validated_modules)?p.validated_modules:[];
+if(method==='GET') return json({validatedModules:list});
+const topic=(body?.topic||'').trim(); if(!topic) return json({error:'topic_required'},400);
+list=list.includes(topic)?list.filter(x=>x!==topic):[...list,topic];
+const ts=now();
+await rest('ue25_progress?student_id=eq.'+encodeURIComponent(part.id),{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({validated_modules:list,last_seen_at:ts,updated_at:ts})});
+return json({validatedModules:list});
+}
+async function loadValidationMap(force=false){
+const part=getLocal(); if(!part?.id) return;
+if(!force && validationLoadedFor===part.id) return;
+const rows=await rest('ue25_progress?select=module_validations,validated_modules&student_id=eq.'+encodeURIComponent(part.id)+'&limit=1');
+const p=rows?.[0]||{};
+validationMap=(p.module_validations&&typeof p.module_validations==='object')?structuredClone(p.module_validations):{};
+legacyValidated=Array.isArray(p.validated_modules)?[...p.validated_modules]:[];
+for(const topic of legacyValidated){
+validationMap[topic]=validationMap[topic]||{};
+if(validationMap[topic].revise!==true) validationMap[topic].revise=true;
+}
+validationLoadedFor=part.id;
+refreshValidationUI();
+}
+function validationDone(topic,type){return !!validationMap?.[topic]?.[type]}
+async function togglePartValidation(topic,type){
+const part=getLocal(); if(!part?.id||!topic) return;
+await loadValidationMap();
+const next=structuredClone(validationMap||{});
+next[topic]=next[topic]||{};
+next[topic][type]=!next[topic][type];
+const ts=now();
+const allDone=['test','revise','case'].every(t=>!!next?.[topic]?.[t]);
+const legacyNext=allDone?[...new Set([...legacyValidated,topic])]:legacyValidated.filter(x=>x!==topic);
+await rest('ue25_progress?student_id=eq.'+encodeURIComponent(part.id),{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({module_validations:next,validated_modules:legacyNext,last_seen_at:ts,updated_at:ts})});
+validationMap=next;legacyValidated=legacyNext;
+refreshValidationUI();
+}
+function addPartButton(host,topic,type,label){
+if(!host||!topic) return;
+let row=host.querySelector(':scope > .ue25-validation-row[data-type="'+type+'"]');
+if(!row){
+row=document.createElement('div');row.className='ue25-validation-row';row.dataset.type=type;
+row.innerHTML='<span></span><button type="button" class="ue25-valid-btn"></button>';
+host.appendChild(row);
+row.querySelector('button').onclick=async e=>{e.preventDefault();e.stopPropagation();const b=e.currentTarget,r=b.closest('.ue25-validation-row');b.disabled=true;try{await togglePartValidation(r.dataset.topic,r.dataset.type)}finally{b.disabled=false}};
+}
+row.dataset.topic=topic;
+const done=validationDone(topic,type),b=row.querySelector('button');
+row.querySelector('span').textContent=done?'✓ Validation enregistrée':'Validation personnelle';
+b.textContent=done?'✓ '+label+' validé':'Valider '+label;
+b.classList.toggle('done',done);
+}
+function updateJourneyProgress(){
+const total=Object.keys(modules).length*3;
+const done=Object.values(validationMap||{}).reduce((sum,v)=>sum+['test','revise','case'].filter(k=>v?.[k]===true).length,0);
+const pct=Math.max(0,Math.min(100,Math.round(done/total*100)));
+const el=document.getElementById('learn-total-value');
+if(el) el.textContent=pct+'%';
+}
+function refreshValidationUI(){
+document.querySelectorAll('.diag-card').forEach(card=>{const topic=card.querySelector('h3')?.textContent?.trim();if(topic)addPartButton(card,topic,'test','le test')});
+const stage=document.getElementById('study-stage'),studyTopic=document.getElementById('study-title')?.textContent?.trim();
+if(stage && !stage.hidden && studyTopic){
+let host=stage.querySelector('.ue25-study-validation');
+if(!host){host=document.createElement('div');host.className='ue25-study-validation';const layout=stage.querySelector('.study-layout');stage.insertBefore(host,layout||null)}
+addPartButton(host,studyTopic,'revise','la révision');
+}
+const activeCase=document.querySelector('.case-pick.active small')?.textContent?.trim();
+const decision=document.querySelector('.decision-card');
+if(decision&&activeCase)addPartButton(decision,activeCase,'case','le cas clinique');
+document.querySelectorAll('.module-card[data-topic]').forEach(card=>{
+const topic=card.dataset.topic; let chips=card.querySelector('.ue25-validation-chips');
+if(!chips){chips=document.createElement('div');chips.className='ue25-validation-chips';card.appendChild(chips)}
+chips.innerHTML=['test','revise','case'].map((t,i)=>'<span class="'+(validationDone(topic,t)?'done':'')+'">'+(validationDone(topic,t)?'✓ ':'')+['Test','Réviser','Cas'][i]+'</span>').join('');
+});
+updateJourneyProgress();
+}
+async function notificationApi(action,extra={}){
+const part=getLocal(); if(!part?.id) throw new Error('signin_required');
+const r=await nativeFetch(SB+'/functions/v1/notifications-api',{method:'POST',cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json','Cache-Control':'
