@@ -1,4 +1,4 @@
-"eyebrow accent">BIBLIOTHÈQUE CLINIQUE · 14 CAS</span><h1>Repère l'alerte. Décide vite.</h1><p>Un cas dédié à chaque module pour entraîner ton raisonnement et ta priorisation infirmière.</p></div><span class="case-time"><b id="case-complete-count">0</b>/<b id="case-total-count">14</b> terminés</span></div>
+"eyebrow accent">BIBLIOTHÈQUE CLINIQUE · 20 CAS</span><h1>Repère l'alerte. Décide vite.</h1><p>Un cas dédié à chaque module pour entraîner ton raisonnement et ta priorisation infirmière.</p></div><span class="case-time"><b id="case-complete-count">0</b>/<b id="case-total-count">20</b> terminés</span></div>
         <div class="filter-row case-filter-row" id="case-filters" aria-label="Filtrer les cas cliniques"></div>
         <div class="case-picker" id="case-picker"></div>
         <div class="case-grid">
@@ -23,7 +23,7 @@
       <section id="diagnostic" class="view">
         <div class="section-hero compact">
           <div><span class="eyebrow accent">DIAGNOSTICS PAR MODULE</span><h1>Choisis ce que tu veux tester.</h1><p>Chaque diagnostic comporte 10 questions. Ton score est conservé séparément pour suivre ta maîtrise module par module.</p></div>
-          <div class="learn-total"><strong id="diag-complete-value">0/14</strong><span>modules évalués</span></div>
+          <div class="learn-total"><strong id="diag-complete-value">0/20</strong><span>modules évalués</span></div>
         </div>
         <div class="filter-row" id="diagnostic-filters" aria-label="Filtrer les diagnostics"></div>
         <div class="diagnostic-grid" id="diagnostic-grid"></div>
