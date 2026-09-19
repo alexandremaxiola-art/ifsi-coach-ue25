@@ -6,7 +6,7 @@ const PASS_HASH='ce648e12e308d162485b9eafcf3ad2f800950eabfc9abfaf3fc7e99aa61be11
 const configReady=nativeFetch('https://ifsi-coach-ue28-sync.vercel.app/app.js?cfg=1',{cache:'no-store'}).then(r=>r.text()).then(t=>{const m=t.match(/const KEY='([^']+)'/);if(!m)throw new Error('configuration indisponible');KEY=m[1]});
 const SESSION='ifsi-coach-ue25-participant-v4';
 const OLD=['ifsi-coach-ue25-participant-v2','ifsi-coach-ue25-participant-v3'];
-const ADMIN='https://ifsi-coach-admin.vercel.app/#ue25';
+const ADMIN='./admin/';
 let validationMap={},legacyValidated=[],validationLoadedFor=null,notifications=[];
 if(location.hash==='#admin'){ location.replace(ADMIN); return; }
 try{ OLD.forEach(k=>localStorage.removeItem(k)); }catch{}
