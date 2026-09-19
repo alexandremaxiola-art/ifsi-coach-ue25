@@ -11,8 +11,8 @@ let validationMap={},legacyValidated=[],validationLoadedFor=null,notifications=[
 if(location.hash==='#admin'){ location.replace(ADMIN); return; }
 try{ OLD.forEach(k=>localStorage.removeItem(k)); }catch{}
 const now=()=>new Date().toISOString();
-const norm=v=>(v||'').trim().replace(/s+/g,' ').toLocaleLowerCase('fr');
-const clean=v=>(v||'').trim().replace(/s+/g,' ').slice(0,30);
+const norm=v=>(v||'').trim().replace(/\\s+/g,' ').toLocaleLowerCase('fr');
+const clean=v=>(v||'').trim().replace(/\\s+/g,' ').slice(0,30);
 const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
 async function rest(path,init={}){
 await configReady;
