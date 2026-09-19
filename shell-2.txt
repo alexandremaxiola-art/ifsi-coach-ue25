@@ -1,0 +1,88 @@
+"eyebrow accent">BIBLIOTHÈQUE CLINIQUE · 14 CAS</span><h1>Repère l'alerte. Décide vite.</h1><p>Un cas dédié à chaque module pour entraîner ton raisonnement et ta priorisation infirmière.</p></div><span class="case-time"><b id="case-complete-count">0</b>/<b id="case-total-count">14</b> terminés</span></div>
+        <div class="filter-row case-filter-row" id="case-filters" aria-label="Filtrer les cas cliniques"></div>
+        <div class="case-picker" id="case-picker"></div>
+        <div class="case-grid">
+          <article class="patient-card">
+            <div class="patient-id"><div class="avatar large" id="case-initials">MR</div><div><strong id="case-patient"></strong><span id="case-place"></span></div><span class="status-watch" id="case-status">À évaluer</span></div>
+            <div class="patient-summary"><p><b>Contexte</b> : <span id="case-context"></span></p></div>
+            <div class="vitals" id="case-vitals"></div>
+            <div class="observations" id="case-signs"></div>
+          </article>
+          <article class="decision-card">
+            <span class="eyebrow accent" id="case-category">ÉTAPE 1 · PRIORISER</span><h2 id="case-question"></h2>
+            <div class="case-answers" id="case-answers"></div>
+            <div id="case-feedback" class="feedback"></div>
+            <button id="case-next" class="primary-btn" disabled>Valider mon choix</button>
+          </article>
+        </div>
+        <article id="case-debrief" class="debrief" hidden>
+          <div><span class="pill dark">DÉBRIEF CLINIQUE</span><h2 id="debrief-title"></h2></div>
+          <div class="debrief-grid"><p><b>Pourquoi ?</b><br><span id="debrief-why"></span></p><p><b>Réflexe IDE</b><br><span id="debrief-action"></span></p><p><b>À surveiller</b><br><span id="debrief-watch"></span></p></div>
+        </article>
+      </section>
+      <section id="diagnostic" class="view">
+        <div class="section-hero compact">
+          <div><span class="eyebrow accent">DIAGNOSTICS PAR MODULE</span><h1>Choisis ce que tu veux tester.</h1><p>Chaque diagnostic comporte 10 questions. Ton score est conservé séparément pour suivre ta maîtrise module par module.</p></div>
+          <div class="learn-total"><strong id="diag-complete-value">0/14</strong><span>modules évalués</span></div>
+        </div>
+        <div class="filter-row" id="diagnostic-filters" aria-label="Filtrer les diagnostics"></div>
+        <div class="diagnostic-grid" id="diagnostic-grid"></div>
+      </section>
+      <section id="quiz" class="view">
+        <div class="quiz-head">
+          <button id="quit-btn" class="ghost-btn">← Quitter</button>
+          <div class="quiz-progress"><span id="progress-label">Question 1 sur 10</span><div><i id="progress-bar"></i></div></div>
+          <span id="topic-chip" class="topic-chip">Syndrome coronarien aigu</span>
+        </div>
+        <div class="quiz-layout">
+          <article class="question-card">
+            <span id="question-kicker" class="eyebrow accent">SURVEILLANCE IDE</span>
+            <h2 id="question-text"></h2>
+            <div id="answers" class="answers"></div>
+            <div id="feedback" class="feedback" aria-live="polite"></div>
+            <div class="quiz-actions">
+              <button id="skip-btn" class="text-btn">Je ne sais pas</button>
+              <button id="next-btn" class="primary-btn" disabled>Valider la réponse</button>
+            </div>
+          </article>
+          <aside class="focus-card">
+            <span class="eyebrow">TA MISSION</span>
+            <h3>Réponds sans regarder tes cours.</h3>
+            <p>L'objectif n'est pas d'avoir une bonne note, mais de trouver précisément ce qui mérite d'être retravaillé.</p>
+            <div class="focus-tip"><b>Conseil</b><span>Lis toutes les propositions avant de répondre.</span></div>
+          </aside>
+        </div>
+      </section>
+      <section id="results" class="view">
+        <div class="results-head">
+          <div><span class="eyebrow accent">DIAGNOSTIC TERMINÉ</span><h1>Ton plan est prêt.</h1><p id="result-copy">Tes priorités de révision apparaissent ici.</p></div>
+          <div class="score-ring" id="score-ring"><div><strong id="score-value">—</strong><small>score global</small></div></div>
+        </div>
+        <div class="results-grid">
+          <article class="mastery-card">
+            <div class="section-title"><span>Maîtrise par thème</span><small>mise à jour maintenant</small></div>
+            <div id="mastery-list"></div>
+          </article>
+          <article class="plan-card">
+            <span class="pill dark">PLAN PERSONNALISÉ</span>
+            <h2 id="priority-title">Commence le diagnostic</h2>
+            <p id="priority-copy">Tes résultats permettront d'identifier les deux thèmes à revoir en priorité.</p>
+            <div id="plan-items" class="plan-items"></div>
+            <button id="review-btn" class="primary-btn">Réviser ma priorité <span>→</span></button>
+          </article>
+        </div>
+        <div class="action-strip">
+          <div><b>Prochain rappel</b><span>Dans 48 heures · 10 questions ciblées</span></div>
+          <button id="restart-btn" class="ghost-btn">Refaire le diagnostic</button>
+        </div>
+      </section>
+      <section id="admin" class="view">
+        <div class="section-hero compact">
+          <div><span class="eyebrow accent">ESPACE ADMINISTRATEUR</span><h1>Progression de la promo.</h1><p>Vue nominative réservée à Alexandre. L’interface étudiante n’affiche pas les résultats des autres membres de la promotion.</p></div>
+          <button id="admin-refresh" class="ghost-btn">Actualiser</button>
+        </div>
+        <div id="admin-auth" class="admin-auth" hidden>
+          <span class="pill dark">ACCÈS PROTÉGÉ</span>
+          <h2>Connecte-toi avec ton compte ChatGPT</h2>
+          <p>Cette vérification permet de réserver les résultats de la promotion à l’administrateur du site.</p>
+          <a class="primary-btn" href="https://ifsi-coach-admin.vercel
