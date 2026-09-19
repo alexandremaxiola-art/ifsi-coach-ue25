@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071d35">
+  <meta name="description" content="IFSI Coach UE 2.8 S3 : processus obstructifs, mécanismes, surveillances IDE, cartes, QCM et cas cliniques.">
+  <title>IFSI Coach — UE 2.8 Processus obstructifs</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23071d35'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%2350ddd1' stroke-width='8'/%3E%3Cpath d='M19 32h9l4-7 4 14 4-7h5' fill='none' stroke='%23ff766f' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navigation principale">
+      <div class="brand"><span class="brand-mark">+</span><span>IFSI <b>Coach</b></span></div>
+      <nav>
+        <button class="nav-item active" data-view="home"><span>⌂</span> Aujourd'hui</button>
+        <button class="nav-item" data-view="diagnostic"><span>◎</span> Diagnostic</button>
+        <button class="nav-item" data-view="learn"><span>◇</span> Réviser</button>
+        <button class="nav-item" data-view="case"><span>✚</span> Cas clinique</button>
+        <button class="nav-item" data-view="results"><span>◫</span> Ma progression</button>
+        <button class="nav-item" data-view="admin"><span>▦</span> Administrateur</button>
+      </nav>
+      <div class="semester-card">
+        <span class="eyebrow">PARCOURS ACTIF</span>
+        <strong>2e année · S3</strong>
+        <span>UE 2.8 — Processus obstructifs</span>
+        <div class="mini-progress"><i></i></div>
+        <small id="sidebar-status">Connexion à la promo…</small>
+      </div>
+      <div class="profile"><div class="avatar" id="profile-avatar">?</div><div><strong id="profile-name">Étudiant</strong><small id="profile-cohort">Saintes 25–28</small></div><button id="logout-btn" class="logout-btn" title="Se déconnecter" aria-label="Se déconnecter">↪</button></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="mobile-brand" aria-label="Ouvrir le menu">+ <b>IFSI Coach</b></button>
+        <div class="crumb" id="crumb">S3 <span>›</span> UE 2.8 <span>›</span> Processus obstructifs</div>
+        <div class="streak"><span>◆</span> Série : <b id="streak-value">1 jour</b></div>
+      </header>
+
+      <section id="home" class="view active">
+        <div class="welcome-row">
+          <div>
+            <span class="eyebrow accent" id="welcome-label">BONJOUR · SESSION DU JOUR</span>
+            <h1>De l’obstacle au symptôme.<br><em>Comprends avant de mémoriser.</em></h1>
+            <p>14 modules, 140 cartes, 140 questions et 14 cas cliniques pour relier obstruction, retentissement, urgence et rôle IDE.</p>
+          </div>
+          <div class="time-badge"><strong>≈ 8</strong><span>minutes</span></div>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="start-card">
+            <div class="card-top"><span class="pill">DIAGNOSTICS UE 2.8</span><span class="question-count">14 modules</span></div>
+            <h2>Quel processus veux-tu tester ?</h2>
+            <p>Cardio-coronaire, artériel, veineux, neurovasculaire, respiratoire, digestif, biliaire et urinaire.</p>
+            <div class="topic-list">
+              <span><i class="dot cyan"></i>Physiopathologie</span>
+              <span><i class="dot lime"></i>Surveillances IDE</span>
+              <span><i class="dot orange"></i>Examens & traitements</span>
+              <span><i class="dot pink"></i>Signes de gravité</span>
+            </div>
+            <button id="start-btn" class="primary-btn">Choisir mon diagnostic <span>→</span></button>
+          </article>
+
+          <aside class="today-card">
+            <div class="section-title"><span>Aujourd'hui</span><small>20 min</small></div>
+            <button class="task-button" data-action="flashcards"><div class="task" id="task-flash"><i>1</i><div><strong>Cartes : mécanismes</strong><small>10 cartes par module</small></div></div></button>
+            <button class="task-button" data-action="diagnostic"><div class="task current" id="task-diagnostic"><i>2</i><div><strong>Diagnostic au choix</strong><small>14 modules · 10 questions chacun</small></div></div></button>
+            <button class="task-button" data-action="case"><div class="task" id="task-case"><i>3</i><div><strong>Cas clinique du jour</strong><small>14 situations disponibles</small></div></div></button>
+          </aside>
+        </div>
+
+        <div class="proof-row metrics">
+          <div><span>MAÎTRISE GLOBALE</span><strong id="home-score">À évaluer</strong></div>
+          <div><span>QUESTIONS TRAITÉES</span><strong id="home-questions">0</strong></div>
+          <div><span>CARTES RÉVISÉES</span><strong id="home-cards">0 / 8</strong></div>
+        </div>
+      </section>
+
+      <section id="learn" class="view">
+        <div class="section-hero compact">
+          <div><span class="eyebrow accent">RÉVISION ACTIVE · 14 MODULES</span><h1>Cause → obstacle → retentissement.</h1><p>Chaque fiche déroule la logique clinique jusqu’aux actions et surveillances infirmières.</p></div>
+          <div class="learn-total"><strong id="learn-total-value">0%</strong><span>parcours réalisé</span></div>
+        </div>
+        <div class="filter-row" id="module-filters" aria-label="Filtrer les modules"></div>
+        <div class="module-grid" id="module-grid"></div>
+        <article class="study-stage" id="study-stage" hidden>
+          <div class="study-head"><div><span id="study-tag" class="eyebrow accent"></span><h2 id="study-title"></h2></div><button id="close-study" class="ghost-btn">Fermer ×</button></div>
+          <div class="study-layout">
+            <div class="lesson-panel" id="lesson-panel"></div>
+            <div class="flash-zone">
+              <div class="flash-meta"><span id="flash-progress">Carte 1 / 8</span><button id="shuffle-btn" class="text-btn">Mélanger</button></div>
+              <button class="flashcard" id="flashcard" aria-label="Retourner la carte">
+                <span class="eyebrow">QUESTION</span><strong id="flash-front"></strong><span id="flash-back" hidden></span><small>Cliquer pour retourner</small>
+              </button>
+              <div class="flash-actions"><button id="again-btn" class="ghost-btn">À revoir</button><button id="know-btn" class="primary-btn">Je savais <span>→</span></button></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="case" class="view">
+        <div class="case-header"><div><span class="eyebrow accent">BIBLIOTHÈQUE CLINIQUE · 14 CAS</span><h1>Repère l'alerte. Décide vite.</h1><p>Un cas dédié à chaque module pour entraîner ton raisonnement et ta priorisation infirmière.</p></div><span class="case-time"><b id="case-complete-count">0</b>/<b id="case-total-count">14</b> terminés</span></div>
+        <div class="filter-row case-filter-row" id="case-filters" aria-label="Filtrer les cas cliniques"></div>
+        <div class="case-picker" id="case-picker"></div>
+        <div class="case-grid">
+          <article class="patient-card">
+            <div class="patient-id"><div class="avatar large" id="case-initials">MR</div><div><strong id="case-patient"></strong><span id="case-place"></span></div><span class="status-watch" id="case-status">À évaluer</span></div>
+            <div class="patient-summary"><p><b>Contexte</b> : <span id="case-context"></span></p></div>
+            <div class="vitals" id="case-vitals"></div>
+            <div class="observations" id="case-signs"></div>
+          </article>
+          <article class="decision-card">
+            <span class="eyebrow accent" id="case-category">ÉTAPE 1 · PRIORISER</span><h2 id="case-question"></h2>
+            <div class="case-answers" id="case-answers"></div>
+            <div id="case-feedback" class="feedback"></div>
+            <button id="case-next" class="primary-btn" disabled>Valider mon choix</button>
+          </article>
+        </div>
+        <article id="case-debrief" class="debrief" hidden>
+          <div><span class="pill dark">DÉBRIEF CLINIQUE</span><h2 id="debrief-title"></h2></div>
+          <div class="debrief-grid"><p><b>Pourquoi ?</b><br><span id="debrief-why"></span></p><p><b>Réflexe IDE</b><br><span id="debrief-action"></span></p><p><b>À surveiller</b><br><span id="debrief-watch"></span></p></div>
+        </article>
+      </section>
+
+      <section id="diagnostic" class="view">
+        <div class="section-hero compact">
+          <div><span class="eyebrow accent">DIAGNOSTICS PAR MODULE</span><h1>Choisis ce que tu veux tester.</h1><p>Chaque diagnostic comporte 10 questions. Ton score est conservé séparément pour suivre ta maîtrise module par module.</p></div>
+          <div class="learn-total"><strong id="diag-complete-value">0/14</strong><span>modules évalués</span></div>
+        </div>
+        <div class="filter-row" id="diagnostic-filters" aria-label="Filtrer les diagnostics"></div>
+        <div class="diagnostic-grid" id="diagnostic-grid"></div>
+      </section>
+
+      <section id="quiz" class="view">
+        <div class="quiz-head">
+          <button id="quit-btn" class="ghost-btn">← Quitter</button>
+          <div class="quiz-progress"><span id="progress-label">Question 1 sur 10</span><div><i id="progress-bar"></i></div></div>
+          <span id="topic-chip" class="topic-chip">Syndrome coronarien aigu</span>
+        </div>
+        <div class="quiz-layout">
+          <article class="question-card">
+            <span id="question-kicker" class="eyebrow accent">SURVEILLANCE IDE</span>
+            <h2 id="question-text"></h2>
+            <div id="answers" class="answers"></div>
+            <div id="feedback" class="feedback" aria-live="polite"></div>
+            <div class="quiz-actions">
+              <button id="skip-btn" class="text-btn">Je ne sais pas</button>
+              <button id="next-btn" class="primary-btn" disabled>Valider la réponse</button>
+            </div>
+          </article>
+          <aside class="focus-card">
+            <span class="eyebrow">TA MISSION</span>
+            <h3>Réponds sans regarder tes cours.</h3>
+            <p>L'objectif n'est pas d'avoir une bonne note, mais de trouver précisément ce qui mérite d'être retravaillé.</p>
+            <div class="focus-tip"><b>Conseil</b><span>Lis toutes les propositions avant de répondre.</span></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="results" class="view">
+        <div class="results-head">
+          <div><span class="eyebrow accent">DIAGNOSTIC TERMINÉ</span><h1>Ton plan est prêt.</h1><p id="result-copy">Tes priorités de révision apparaissent ici.</p></div>
+          <div class="score-ring" id="score-ring"><div><strong id="score-value">—</strong><small>score global</small></div></div>
+        </div>
+        <div class="results-grid">
+          <article class="mastery-card">
+            <div class="section-title"><span>Maîtrise par thème</span><small>mise à jour maintenant</small></div>
+            <div id="mastery-list"></div>
+          </article>
+          <article class="plan-card">
+            <span class="pill dark">PLAN PERSONNALISÉ</span>
+            <h2 id="priority-title">Commence le diagnostic</h2>
+            <p id="priority-copy">Tes résultats permettront d'identifier les deux thèmes à revoir en priorité.</p>
+            <div id="plan-items" class="plan-items"></div>
+            <button id="review-btn" class="primary-btn">Réviser ma priorité <span>→</span></button>
+          </article>
+        </div>
+        <div class="action-strip">
+          <div><b>Prochain rappel</b><span>Dans 48 heures · 10 questions ciblées</span></div>
+          <button id="restart-btn" class="ghost-btn">Refaire le diagnostic</button>
+        </div>
+      </section>
+
+      <section id="admin" class="view">
+        <div class="section-hero compact">
+          <div><span class="eyebrow accent">ESPACE ADMINISTRATEUR</span><h1>Progression de la promo.</h1><p>Vue nominative réservée à Alexandre. Les étudiants ne peuvent pas consulter les résultats de leurs camarades.</p></div>
+          <button id="admin-refresh" class="ghost-btn">Actualiser</button>
+        </div>
+        <div id="admin-auth" class="admin-auth" hidden>
+          <span class="pill dark">ACCÈS PROTÉGÉ</span>
+          <h2>Connecte-toi avec ton compte ChatGPT</h2>
+          <p>Cette vérification permet de réserver les résultats de la promotion à l’administrateur du site.</p>
+          <a class="primary-btn" href="https://ifsi-coach-ue28-processus-obstructifs.poi32.chatgpt.site/#admin" target="_top">Connexion administrateur <span>→</span></a>
+        </div>
+        <div id="admin-denied" class="admin-auth" hidden>
+          <span class="pill dark">ACCÈS REFUSÉ</span><h2>Espace réservé à Alexandre</h2><p>Le compte connecté n’est pas autorisé à consulter les résultats nominatifs.</p>
+        </div>
+        <div id="admin-dashboard" hidden>
+          <div class="ue-switcher">
+            <a href="https://ifsi-coach-demo.vercel.app/#admin" target="_top"><span>UE 2.11 S3</span><strong>Pharmacologie</strong></a>
+            <a class="current" href="/#admin"><span>UE 2.8 S3</span><strong>Processus obstructifs</strong></a>
+          </div>
+          <form id="admin-add-form" class="admin-add-form">
+            <label>Préinscrire un étudiant<input id="admin-add-name" maxlength="30" placeholder="Prénom"></label>
+            <button class="ghost-btn" type="submit">Ajouter</button>
+            <span id="admin-add-status" aria-live="polite"></span>
+          </form>
+          <div class="admin-metrics">
+            <article><span>ÉTUDIANTS INSCRITS</span><strong id="admin-students">0</strong></article>
+            <article><span>MODULES ÉVALUÉS</span><strong id="admin-attempts">0</strong></article>
+            <article><span>MOYENNE DE PROMO</span><strong id="admin-average">—</strong></article>
+            <article><span>ACTIFS SUR 7 JOURS</span><strong id="admin-active">0</strong></article>
+          </div>
+          <div class="admin-layout">
+            <article class="admin-panel">
+              <div class="section-title"><span>Suivi nominatif</span><small id="admin-updated">mise à jour maintenant</small></div>
+              <div class="table-wrap"><table class="progress-table"><thead><tr><th>Étudiant</th><th>Progression</th><th>Moyenne</th><th>Temps</th><th>Cartes</th><th>Cas</th><th>Dernière activité</th><th>Détail</th></tr></thead><tbody id="admin-student-rows"></tbody></table></div>
+              <div id="admin-student-detail" class="student-detail" hidden></div>
+            </article>
+            <article class="admin-panel">
+              <div class="section-title"><span>Modules à renforcer</span><small>moyenne collective</small></div>
+              <div id="admin-module-list" class="admin-module-list"></div>
+            </article>
+          </div>
+          <p class="privacy-note">Données collectées : prénom choisi, promotion et progression pédagogique. Aucun nom de famille, courriel ou renseignement médical n’est demandé.</p>
+        </div>
+      </section>
+
+      <details class="source-note">
+        <summary>Références et limites du prototype</summary>
+        <p>Corpus principal : 23 supports UE 2.8 transmis par l’étudiant (IFSI 2021–2022, M. Paul Menu et support Roumeguere). Les synthèses doivent rester confrontées aux recommandations et protocoles à jour.</p>
+        <div>
+          <a href="https://www.has-sante.fr/" target="_blank" rel="noreferrer">Haute Autorité de santé</a>
+          <a href="https://www.escardio.org/Guidelines" target="_blank" rel="noreferrer">ESC · recommandations cardiovasculaires</a>
+          <a href="https://goldcopd.org/2026-gold-report-and-pocket-guide/" target="_blank" rel="noreferrer">GOLD 2026 · BPCO</a>
+          <a href="https://uroweb.org/guidelines/urolithiasis" target="_blank" rel="noreferrer">EAU · lithiase urinaire</a>
+        </div>
+      </details>
+      <footer>Prototype pédagogique — ne remplace pas une décision clinique ni les protocoles de l'établissement.</footer>
+      <nav class="mobile-nav" aria-label="Navigation mobile">
+        <button class="mobile-nav-item active" data-mobile-view="home">Accueil</button>
+        <button class="mobile-nav-item" data-mobile-view="diagnostic">Test</button>
+        <button class="mobile-nav-item" data-mobile-view="learn">Réviser</button>
+        <button class="mobile-nav-item" data-mobile-view="case">Cas</button>
+        <button class="mobile-nav-item" data-mobile-view="results">Progrès</button>
+        <button class="mobile-nav-item" data-mobile-view="admin">Admin</button>
+      </nav>
+    </main>
+  </div>
+  <div class="join-gate" id="join-gate" hidden>
+    <div class="login-visual" role="img" aria-label="Illustration médicale des principaux processus obstructifs">
+      <div class="login-visual-copy"><span>UE 2.8 · S3</span><strong>Comprendre l’obstacle.<br>Reconnaître l’urgence.</strong></div>
+    </div>
+    <form class="join-card" id="join-form">
+      <div class="brand join-brand"><span class="brand-mark">+</span><span>IFSI <b>Coach</b></span></div>
+      <span class="eyebrow accent">PROMOTION SAINTES 2025–2028</span>
+      <h1>Processus obstructifs.</h1>
+      <p>Connecte-toi avec ton prénom. Ta progression reste enregistrée pour cette UE et visible uniquement depuis ton compte et l’espace administrateur.</p>
+      <label>Identifiant étudiant<input id="join-name" name="firstName" autocomplete="username" maxlength="30" placeholder="Ton prénom" required></label>
+      <label>Mot de passe<input id="join-cohort" name="password" type="password" autocomplete="current-password" placeholder="Mot de passe de la promotion" required></label>
+      <label class="consent"><input id="join-consent" type="checkbox" required><span>J’accepte l’enregistrement de mon prénom choisi et de ma progression pédagogique pour ce test.</span></label>
+      <div id="join-error" class="form-error" role="alert"></div>
+      <button class="primary-btn" type="submit">Accéder à l’UE 2.8 <span>→</span></button>
+      <a class="admin-login-link" href="https://ifsi-coach-ue28-processus-obstructifs.poi32.chatgpt.site/#admin" target="_top">Accès administrateur Alexandre</a>
+      <small>Prototype pédagogique · aucune donnée de santé n’est collectée.</small>
+    </form>
+  </div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
