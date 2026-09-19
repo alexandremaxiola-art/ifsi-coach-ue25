@@ -1,0 +1,116 @@
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navigation principale">
+      <div class="brand"><span class="brand-mark">+</span><span>IFSI <b>Coach</b></span></div>
+      <nav>
+        <button class="nav-item active" data-view="home"><span>⌂</span> Aujourd'hui</button>
+        <button class="nav-item" data-view="diagnostic"><span>◎</span> Diagnostic</button>
+        <button class="nav-item" data-view="learn"><span>◇</span> Réviser</button>
+        <button class="nav-item" data-view="case"><span>✚</span> Cas clinique</button>
+        <button class="nav-item" data-view="results"><span>◫</span> Ma progression</button>
+        <button class="nav-item" data-view="admin"><span>▦</span> Administrateur</button>
+      </nav>
+      <div class="semester-card">
+        <span class="eyebrow">PARCOURS ACTIF</span>
+        <strong>2e année · S3</strong>
+        <span>UE 2.5 — Processus infectieux</span>
+        <div class="mini-progress"><i></i></div>
+        <small id="sidebar-status">Connexion à la promo…</small>
+      </div>
+      <div class="profile"><div class="avatar" id="profile-avatar">?</div><div><strong id="profile-name">Étudiant</strong><small id="profile-cohort">Saintes 25–28</small></div><button id="logout-btn" class="logout-btn" title="Se déconnecter" aria-label="Se déconnecter">↪</button></div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <button class="mobile-brand" aria-label="Ouvrir le menu">+ <b>IFSI Coach</b></button>
+        <div class="crumb" id="crumb">S3 <span>›</span> UE 2.5 <span>›</span> Processus infectieux</div>
+        <div class="streak"><span>◆</span> Série : <b id="streak-value">1 jour</b></div>
+      </header>
+      <section id="home" class="view active">
+        <div class="welcome-row">
+          <div>
+            <span class="eyebrow accent" id="welcome-label">BONJOUR · SESSION DU JOUR</span>
+            <h1>De l’agent au patient.<br><em>Comprends avant de mémoriser.</em></h1>
+            <p>20 modules, 200 cartes, 200 questions et 20 cas cliniques pour relier physiopathologie, prévention, urgence et rôle IDE.</p>
+          </div>
+          <div class="time-badge"><strong>≈ 8</strong><span>minutes</span></div>
+        </div>
+        <div class="dashboard-grid">
+          <article class="start-card">
+            <div class="card-top"><span class="pill">DIAGNOSTICS UE 2.5</span><span class="question-count">20 modules</span></div>
+            <h2>Quel processus veux-tu tester ?</h2>
+            <p>Sepsis, prélèvements, vaccination, infections respiratoires, urinaires, digestives, neurologiques, cutanées, VIH, IST et hépatites.</p>
+            <div class="topic-list">
+              <span><i class="dot cyan"></i>Physiopathologie</span>
+              <span><i class="dot lime"></i>Surveillances IDE</span>
+              <span><i class="dot orange"></i>Examens & traitements</span>
+              <span><i class="dot pink"></i>Signes de gravité</span>
+            </div>
+            <button id="start-btn" class="primary-btn">Choisir mon diagnostic <span>→</span></button>
+          </article>
+          <aside class="today-card">
+            <div class="section-title"><span>Aujourd'hui</span><small>20 min</small></div>
+            <button class="task-button" data-action="flashcards"><div class="task" id="task-flash"><i>1</i><div><strong>Cartes : mécanismes</strong><small>10 cartes par module</small></div></div></button>
+            <button class="task-button" data-action="diagnostic"><div class="task current" id="task-diagnostic"><i>2</i><div><strong>Diagnostic au choix</strong><small>20 modules · 10 questions chacun</small></div></div></button>
+            <button class="task-button" data-action="case"><div class="task" id="task-case"><i>3</i><div><strong>Cas clinique du jour</strong><small>20 situations disponibles</small></div></div></button>
+          </aside>
+        </div>
+        <div class="proof-row metrics">
+          <div><span>MAÎTRISE GLOBALE</span><strong id="home-score">À évaluer</strong></div>
+          <div><span>QUESTIONS TRAITÉES</span><strong id="home-questions">0</strong></div>
+          <div><span>CARTES RÉVISÉES</span><strong id="home-cards">0 / 8</strong></div>
+        </div>
+      </section>
+      <section id="learn" class="view">
+        <div class="section-hero compact">
+          <div><span class="eyebrow accent">RÉVISION ACTIVE · 20 MODULES</span><h1>Agent → transmission → réponse clinique.</h1><p>Chaque fiche déroule la logique clinique jusqu’aux actions, à la prévention et aux surveillances infirmières.</p></div>
+          <div class="learn-total"><strong id="learn-total-value">0%</strong><span>parcours réalisé</span></div>
+        </div>
+        <div class="filter-row" id="module-filters" aria-label="Filtrer les modules"></div>
+        <div class="module-grid" id="module-grid"></div>
+        <article class="study-stage" id="study-stage" hidden>
+          <div class="study-head"><div><span id="study-tag" class="eyebrow accent"></span><h2 id="study-title"></h2></div><button id="close-study" class="ghost-btn">Fermer ×</button></div>
+          <div class="study-layout">
+            <div class="lesson-panel" id="lesson-panel"></div>
+            <div class="flash-zone">
+              <div class="flash-meta"><span id="flash-progress">Carte 1 / 8</span><button id="shuffle-btn" class="text-btn">Mélanger</button></div>
+              <button class="flashcard" id="flashcard" aria-label="Retourner la carte">
+                <span class="eyebrow">QUESTION</span><strong id="flash-front"></strong><span id="flash-back" hidden></span><small>Cliquer pour retourner</small>
+              </button>
+              <div class="flash-actions"><button id="again-btn" class="ghost-btn">À revoir</button><button id="know-btn" class="primary-btn">Je savais <span>→</span></button></div>
+            </div>
+          </div>
+        </article>
+      </section>
+      <section id="case" class="view">
+        <div class="case-header"><div><span class="eyebrow accent">BIBLIOTHÈQUE CLINIQUE · 14 CAS</span><h1>Repère l'alerte. Décide vite.</h1><p>Un cas dédié à chaque module pour entraîner ton raisonnement et ta priorisation infirmière.</p></div><span class="case-time"><b id="case-complete-count">0</b>/<b id="case-total-count">14</b> terminés</span></div>
+        <div class="filter-row case-filter-row" id="case-filters" aria-label="Filtrer les cas cliniques"></div>
+        <div class="case-picker" id="case-picker"></div>
+        <div class="case-grid">
+          <article class="patient-card">
+            <div class="patient-id"><div class="avatar large" id="case-initials">MR</div><div><strong id="case-patient"></strong><span id="case-place"></span></div><span class="status-watch" id="case-status">À évaluer</span></div>
+            <div class="patient-summary"><p><b>Contexte</b> : <span id="case-context"></span></p></div>
+            <div class="vitals" id="case-vitals"></div>
+            <div class="observations" id="case-signs"></div>
+          </article>
+          <article class="decision-card">
+            <span class="eyebrow accent" id="case-category">ÉTAPE 1 · PRIORISER</span><h2 id="case-question"></h2>
+            <div class="case-answers" id="case-answers"></div>
+            <div id="case-feedback" class="feedback"></div>
+            <button id="case-next" class="primary-btn" disabled>Valider mon choix</button>
+          </article>
+        </div>
+        <article id="case-debrief" class="debrief" hidden>
+          <div><span class="pill dark">DÉBRIEF CLINIQUE</span><h2 id="debrief-title"></h2></div>
+          <div class="debrief-grid"><p><b>Pourquoi ?</b><br><span id="debrief-why"></span></p><p><b>Réflexe IDE</b><br><span id="debrief-action"></span></p><p><b>À surveiller</b><br><span id="debrief-watch"></span></p></div>
+        </article>
+      </section>
+      <section id="diagnostic" class="view">
+        <div class="section-hero compact">
+          <div><span class="eyebrow accent">DIAGNOSTICS PAR MODULE</span><h1>Choisis ce que tu veux tester.</h1><p>Chaque diagnostic comporte 10 questions. Ton score est conservé séparément pour suivre ta maîtrise module par module.</p></div>
+          <div class="learn-total"><strong id="diag-complete-value">0/14</strong><span>modules évalués</span></div>
+        </div>
+        <div class="filter-row" id="diagnostic-filters" aria-label="Filtrer les diagnostics"></div>
+        <div class="diagnostic-grid" id="diagnostic-grid"></div>
+      </section>
+      <section id="quiz" class="view">
+        <div class="quiz-head"
