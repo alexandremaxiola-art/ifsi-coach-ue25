@@ -70,6 +70,6 @@
       <label class="consent"><input id="join-consent" type="checkbox" required><span>J’accepte l’enregistrement de mon prénom choisi et de ma progression pédagogique pour ce test.</span></label>
       <div id="join-error" class="form-error" role="alert"></div>
       <button class="primary-btn" type="submit">Accéder à l’UE 2.5 <span>→</span></button>
-      <a class="admin-login-link" href="https://ifsi-coach-admin.vercel.app/#ue25" target="_top">Accès administrateur Alexandre</a>
+      <a class="admin-login-link" href="./admin/" target="_top">Accès administrateur Alexandre</a>
       <small>Prototype pédagogique · aucune donnée de santé n’est collectée.</small>
  
