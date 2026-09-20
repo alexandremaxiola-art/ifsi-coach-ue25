@@ -173,3 +173,9 @@ main{width:100%;min-width:0;overflow-x:hidden}
   #home.view{padding-left:28px !important;padding-right:28px !important}
   .welcome-row{grid-template-columns:minmax(0,1fr) minmax(210px,285px) !important}
 }
+
+/* Critical visibility fix v5 — login and app are mutually exclusive */
+.app.hidden,
+.login-gate.hidden{
+  display:none !important;
+}
