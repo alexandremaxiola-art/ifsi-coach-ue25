@@ -209,8 +209,7 @@ return json({error:'not_found'},404);
 };
 function installUI(){
 injectExtras();
-d
-ocument.addEventListener('click',e=>{
+document.addEventListener('click',e=>{
 const a=e.target.closest('[data-view="admin"],[data-mobile-view="admin"],.admin-login-link');
 if(a){e.preventDefault();location.href=ADMIN;return}
 if(e.target.closest('.module-card,.diag-card,[data-diagnostic-filter],[data-case-pick],[data-case-filter],.task-button,#review-btn,#start-btn')) setTimeout(refreshValidationUI,120);
