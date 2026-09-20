@@ -139,8 +139,8 @@ function validateQuiz(){
   if(!quizValidated){quizValidated=true;const ok=quizChoice===q.ok;quizAnswers.push(ok);$('#quiz-options').querySelectorAll('.answer').forEach((b,i)=>{if(i===q.ok)b.classList.add('correct');if(i===quizChoice&&i!==q.ok)b.classList.add('wrong')});$('#quiz-feedback').className='feedback show '+(ok?'good':'bad');$('#quiz-feedback').innerHTML='<b>'+(ok?'Bonne réponse.':'À revoir.')+'</b> '+q.why;$('#quiz-next').textContent=quizIndex===quizQuestions.length-1?'Voir mon bilan':'Question suivante';return}
   if(quizIndex<quizQuestions.length-1){quizIndex++;renderQuiz()}else finishQuiz()
 }
-function finishQuiz(){
-  const score=Math.round(quizAnswers.filter(Boolean).length/quizQuestions.length*100);state.moduleScores={...(state.moduleScores||{}),[quizModule.title]:score};state.lastDiagnosticTopic=quizModule.title;save(quizModule.title);toggleValidation(quizModule.title,'test').then(()=>show('results'));
+async function finishQuiz(){
+  const score=Math.round(quizAnswers.filter(Boolean).length/quizQuestions.length*100);state.moduleScores={...(state.moduleScores||{}),[quizModule.title]:score};state.lastDiagnosticTopic=quizModule.title;save(quizModule.title);if(!state.moduleValidations?.[quizModule.title]?.test)await toggleValidation(quizModule.title,'test');show('results');
 }
 $('#quiz-next').onclick=validateQuiz;$('#quiz-skip').onclick=()=>{quizChoice=-1;validateQuiz()};$('#quit-quiz').onclick=()=>show('diagnostic');
 function renderCases(){
@@ -158,7 +158,7 @@ function renderCases(){
 function validateCase(){
   const m=modules[caseIndex],c=m.case;if(caseChoice===null)return;
   if(!caseValidated){caseValidated=true;const ok=caseChoice===c.ok;$('#case-options').querySelectorAll('.answer').forEach((b,i)=>{if(i===c.ok)b.classList.add('correct');if(i===caseChoice&&i!==c.ok)b.classList.add('wrong')});$('#case-feedback').className='feedback show '+(ok?'good':'bad');$('#case-feedback').innerHTML='<b>'+(ok?'Bonne décision.':'Décision à revoir.')+'</b> '+c.why;$('#case-next').textContent='Voir le débrief';if(!state.casesDone.includes(m.id))state.casesDone.push(m.id);save();return}
-  $('#case-debrief').innerHTML='<b>À retenir</b><p>'+c.debrief+'</p>';$('#case-debrief').classList.remove('hidden');toggleValidation(m.title,'case').then(()=>renderValidation($('#case-validation'),m.title,'case','Valider cette situation'));
+  $('#case-debrief').innerHTML='<b>À retenir</b><p>'+c.debrief+'</p>';$('#case-debrief').classList.remove('hidden');if(!state.moduleValidations?.[m.title]?.case)toggleValidation(m.title,'case').then(()=>renderValidation($('#case-validation'),m.title,'case','Valider cette situation'));else renderValidation($('#case-validation'),m.title,'case','Valider cette situation');
 }
 $('#case-next').onclick=validateCase;
 function renderResults(){
