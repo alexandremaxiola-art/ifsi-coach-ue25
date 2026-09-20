@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071d35">
+  <meta name="description" content="IFSI Coach UE 1.2 S3 — Santé publique et économie de la santé">
+  <title>IFSI Coach — UE 1.2 S3</title>
+  <link rel="stylesheet" href="./style.css?v=20260920-1">
+</head>
+<body>
+<div id="login" class="login-gate">
+  <div class="login-panel">
+    <div class="login-copy">
+      <span class="eyebrow">IFSI COACH · S3</span>
+      <h1>UE 1.2<br><em>Santé publique & économie de la santé</em></h1>
+      <p>Révise les démarches de santé publique, l’épidémiologie, la prévention, les systèmes de santé, la régulation et la santé environnementale.</p>
+      <div class="login-pills"><span>15 modules</span><span>150 cartes</span><span>150 questions</span><span>15 situations</span></div>
+    </div>
+    <form id="login-form" class="login-card">
+      <div class="brand">✚ IFSI <b>Coach</b></div>
+      <h2>Connexion étudiant</h2>
+      <label>Prénom<input id="login-name" maxlength="30" autocomplete="given-name" required></label>
+      <label>Mot de passe promo<input id="login-password" type="password" autocomplete="current-password" required></label>
+      <button class="primary" type="submit">Entrer dans l’UE 1.2 →</button>
+      <p id="login-error" class="error"></p>
+      <small>Promotion Saintes 25–28</small>
+    </form>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+  <aside class="sidebar">
+    <div class="brand">✚ IFSI <b>Coach</b></div>
+    <nav>
+      <button class="nav active" data-view="home">⌂ Aujourd’hui</button>
+      <button class="nav" data-view="learn">◇ Réviser</button>
+      <button class="nav" data-view="diagnostic">◎ Diagnostic</button>
+      <button class="nav" data-view="cases">✚ Situations</button>
+      <button class="nav" data-view="results">◫ Ma progression</button>
+      <a class="nav link" href="./admin/">▦ Administrateur</a>
+    </nav>
+    <div class="course-card">
+      <span>PARCOURS ACTIF</span>
+      <strong>2e année · S3</strong>
+      <small>UE 1.2 — Santé publique & économie de la santé</small>
+      <div class="mini-progress"><i id="side-progress"></i></div>
+      <small id="sync-status">Synchronisation sécurisée</small>
+    </div>
+    <div class="profile">
+      <div class="avatar" id="avatar">?</div>
+      <div><strong id="profile-name">Étudiant</strong><small>Saintes 25–28</small></div>
+      <button id="logout" title="Déconnexion">↪</button>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div id="crumb">S3 › UE 1.2 › Accueil</div>
+      <div class="top-actions">
+        <button id="notif-btn" class="icon-btn">🔔<span id="notif-count" hidden>0</span></button>
+        <span class="streak">◆ <b id="streak">1 jour</b></span>
+      </div>
+    </header>
+
+    <section id="home" class="view active">
+      <div class="hero">
+        <div>
+          <span class="eyebrow accent" id="hello">BONJOUR</span>
+          <h1>Comprendre la santé d’une population.<br><em>Relier les données, les choix et les actions.</em></h1>
+          <p>Un parcours construit à partir de tes 15 supports de cours UE 1.2 S3 : démarches de santé publique, épidémiologie, prévention, économie, régulation, environnement et climat.</p>
+          <button class="primary" data-go="diagnostic">Tester mes connaissances →</button>
+        </div>
+        <div class="hero-visual">
+          <div class="orbit o1">ÉPIDÉMIO</div><div class="orbit o2">PRÉVENTION</div><div class="orbit o3">ÉCONOMIE</div><div class="orbit o4">ENVIRONNEMENT</div>
+          <div class="core">1.2</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <article><span>MAÎTRISE GLOBALE</span><strong id="home-score">À évaluer</strong></article>
+        <article><span>QUESTIONS TRAITÉES</span><strong id="home-questions">0</strong></article>
+        <article><span>CARTES RÉVISÉES</span><strong id="home-cards">0 / 150</strong></article>
+        <article><span>SITUATIONS TERMINÉES</span><strong id="home-cases">0 / 15</strong></article>
+      </div>
+      <div class="home-grid">
+        <article class="panel">
+          <span class="pill">PARCOURS CONSEILLÉ</span>
+          <h2>Le fil logique de l’UE 1.2</h2>
+          <div class="steps">
+            <div><b>1</b><span>Observer une population et identifier ses besoins.</span></div>
+            <div><b>2</b><span>Mesurer, comparer et interpréter les données épidémiologiques.</span></div>
+            <div><b>3</b><span>Comprendre comment le système de santé est organisé et régulé.</span></div>
+            <div><b>4</b><span>Passer à l’action : prévention, santé au travail, environnement et développement durable.</span></div>
+          </div>
+        </article>
+        <article class="panel today">
+          <span class="pill dark">AUJOURD’HUI</span>
+          <button data-quick="learn"><b>01</b><span><strong>Réviser un module</strong><small>Fiche + 10 cartes</small></span></button>
+          <button data-quick="diagnostic"><b>02</b><span><strong>Faire un diagnostic</strong><small>10 questions ciblées</small></span></button>
+          <button data-quick="cases"><b>03</b><span><strong>Résoudre une situation</strong><small>Raisonnement santé publique</small></span></button>
+        </article>
+      </div>
+    </section>
+
+    <section id="learn" class="view">
+      <div class="section-hero">
+        <div><span class="eyebrow accent">RÉVISION ACTIVE · 15 MODULES</span><h1>Comprendre avant de mémoriser.</h1><p>Chaque module reprend les notions soutenues par tes cours, avec une synthèse structurée et 10 cartes de rappel.</p></div>
+        <div class="big-progress"><strong id="learn-progress">0%</strong><span>parcours validé</span></div>
+      </div>
+      <div id="learn-filters" class="filters"></div>
+      <div id="module-grid" class="module-grid"></div>
+      <article id="study" class="study hidden">
+        <div class="study-head"><div><span id="study-category" class="pill"></span><h2 id="study-title"></h2><small id="study-source"></small></div><button id="close-study" class="ghost">Fermer ×</button></div>
+        <div class="study-layout">
+          <div id="lesson" class="lesson"></div>
+          <div class="flash-zone">
+            <div class="flash-meta"><span id="flash-count"></span><button id="shuffle" class="text-btn">Mélanger</button></div>
+            <button id="flashcard" class="flashcard"><span class="eyebrow">QUESTION</span><strong id="flash-front"></strong><p id="flash-back" hidden></p><small>Cliquer pour retourner</small></button>
+            <div class="flash-actions"><button id="again" class="ghost">À revoir</button><button id="know" class="primary">Je savais →</button></div>
+            <div id="revise-validation" class="validation-box"></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="diagnostic" class="view">
+      <div class="section-hero">
+        <div><span class="eyebrow accent">DIAGNOSTICS PAR MODULE</span><h1>Teste ce que tu sais vraiment.</h1><p>10 questions par module. Les distracteurs viennent des notions proches pour éviter les réponses trop évidentes.</p></div>
+        <div class="big-progress"><strong id="diag-count">0/15</strong><span>modules évalués</span></div>
+      </div>
+      <div id="diag-filters" class="filters"></div>
+      <div id="diag-grid" class="module-grid"></div>
+    </section>
+
+    <section id="quiz" class="view">
+      <div class="quiz-head"><button id="quit-quiz" class="ghost">← Quitter</button><div><span id="quiz-position">Question 1 / 10</span><div class="quiz-bar"><i id="quiz-bar"></i></div></div><span id="quiz-topic" class="pill"></span></div>
+      <div class="quiz-layout">
+        <article class="question panel">
+          <span id="quiz-kicker" class="eyebrow accent"></span>
+          <h2 id="quiz-question"></h2>
+          <div id="quiz-options" class="answers"></div>
+          <div id="quiz-feedback" class="feedback"></div>
+          <div class="quiz-actions"><button id="quiz-skip" class="text-btn">Je ne sais pas</button><button id="quiz-next" class="primary" disabled>Valider</button></div>
+        </article>
+        <aside class="panel mission"><span class="eyebrow">TA MISSION</span><h3>Raisonner, pas réciter.</h3><p>Lis toutes les propositions. Les réponses incorrectes reprennent volontairement des concepts proches de la bonne réponse.</p></aside>
+      </div>
+    </section>
+
+    <section id="cases" class="view">
+      <div class="section-hero">
+        <div><span class="eyebrow accent">15 SITUATIONS D’APPLICATION</span><h1>Du cours à la décision.</h1><p>Des situations inspirées des thèmes du corpus : prévention, études épidémiologiques, financement, santé au travail, environnement et politiques de santé.</p></div>
+        <div class="big-progress"><strong id="case-count">0/15</strong><span>situations terminées</span></div>
+      </div>
+      <div id="case-filters" class="filters"></div>
+      <div id="case-list" class="case-list"></div>
+      <div class="case-layout">
+        <article class="panel">
+          <span id="case-category" class="pill"></span>
+          <h2 id="case-title"></h2>
+          <p id="case-context" class="case-context"></p>
+          <div id="case-clues" class="clues"></div>
+        </article>
+        <article class="panel">
+          <span class="eyebrow accent">DÉCISION</span>
+          <h2 id="case-question"></h2>
+          <div id="case-options" class="answers"></div>
+          <div id="case-feedback" class="feedback"></div>
+          <button id="case-next" class="primary" disabled>Valider mon choix</button>
+          <div id="case-debrief" class="debrief hidden"></div>
+          <div id="case-validation" class="validation-box"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="results" class="view">
+      <div class="section-hero">
+        <div><span class="eyebrow accent">MA PROGRESSION</span><h1>Ta carte de maîtrise UE 1.2.</h1><p>Scores, validations et priorités de révision sont conservés séparément des autres UE.</p></div>
+        <div class="score-ring"><strong id="global-score">—</strong><span>moyenne</span></div>
+      </div>
+      <div id="mastery" class="mastery"></div>
+    </section>
+
+    <details class="sources">
+      <summary>Corpus pédagogique utilisé</summary>
+      <p>Cette version est construite à partir des 15 PDF UE 1.2 S3 transmis dans la conversation. Les chiffres historiques et exemples datés sont présentés comme éléments du support de cours et ne sont pas actualisés silencieusement.</p>
+      <div id="source-list"></div>
+    </details>
+    <footer>Support de révision étudiant — UE 1.2 S3 · ne remplace pas les consignes de l’IFSI ni les textes officiels à jour.</footer>
+  </main>
+</div>
+
+<div id="notif-modal" class="modal hidden">
+  <div class="modal-card"><div class="modal-head"><div><span class="eyebrow accent">MESSAGES IFSI COACH</span><h2>Messages d’Alexandre</h2></div><button id="notif-close" class="ghost">Fermer</button></div><div id="notif-list"></div></div>
+</div>
+
+<script src="./data.js?v=20260920-1"></script>
+<script src="./app.js?v=20260920-1"></script>
+</body>
+</html>
