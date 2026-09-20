@@ -1,8 +1,7 @@
 (function(){
 const SB='https://bzmwtjkjuihbrhiumdul.supabase.co';
 const nativeFetch=window.fetch.bind(window);
-const KEY='sb_publishable_k2hNQO9qxjtwCMlnAMjzwg_yOiEb2RI';
-const API=SB+'/functions/v1/coach-api';
+const API='/api/coach';
 const SESSION='ifsi-coach-ue25-participant-v4';
 const TOKEN_KEY='ifsi-coach-secure-token-v1';
 const OLD=['ifsi-coach-ue25-participant-v2','ifsi-coach-ue25-participant-v3'];
@@ -21,7 +20,7 @@ function setLocal(p,token){try{sessionStorage.setItem(SESSION,JSON.stringify(p))
 function clearLocal(){try{sessionStorage.removeItem(SESSION);localStorage.removeItem(SESSION);sessionStorage.removeItem(TOKEN_KEY);localStorage.removeItem(TOKEN_KEY);OLD.forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('ifsi-coach-ue25-pass')}catch{}}
 async function secureCall(action,body={}){
   const token=getToken();
-  const r=await nativeFetch(API,{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json','Cache-Control':'no-cache','apikey':KEY,...(token?{'x-coach-session':token}:{})},body:JSON.stringify({action,...body})});
+  const r=await nativeFetch(API,{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json','Cache-Control':'no-cache',...(token?{'x-coach-session':token}:{})},body:JSON.stringify({action,...body})});
   const data=await r.json().catch(()=>({}));
   if(!r.ok){const e=new Error(data.error||'secure_api_error');e.status=r.status;throw e}
   return data;
