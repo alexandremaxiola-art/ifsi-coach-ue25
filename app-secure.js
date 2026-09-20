@@ -1,26 +1,20 @@
 (function(){
 const SB='https://bzmwtjkjuihbrhiumdul.supabase.co';
-const KEY='sb_publishable_k2hNQO9qxjtwCMlnAMjzwg_yOiEb2RI';
 const nativeFetch=window.fetch.bind(window);
+const KEY='sb_publishable_k2hNQO9qxjtwCMlnAMjzwg_yOiEb2RI';
 const API=SB+'/functions/v1/coach-api';
 const SESSION='ifsi-coach-ue25-participant-v4';
 const TOKEN_KEY='ifsi-coach-secure-token-v1';
-try{localStorage.removeItem(SESSION);localStorage.removeItem(TOKEN_KEY)}catch{};const OLD=['ifsi-coach-ue25-participant-v2','ifsi-coach-ue25-participant-v3'];
+const OLD=['ifsi-coach-ue25-participant-v2','ifsi-coach-ue25-participant-v3'];
 const ADMIN='./admin/';
 let validationMap={},legacyValidated=[],validationLoadedFor=null,notifications=[];
 if(location.hash==='#admin'){ location.replace(ADMIN); return; }
-try{ OLD.forEach(k=>localStorage.removeItem(k)); }catch{}
+try{localStorage.removeItem(SESSION);localStorage.removeItem(TOKEN_KEY);OLD.forEach(k=>localStorage.removeItem(k))}catch{}
 const now=()=>new Date().toISOString();
 const norm=v=>(v||'').trim().replace(/\s+/g,' ').toLocaleLowerCase('fr');
 const clean=v=>(v||'').trim().replace(/\s+/g,' ').slice(0,30);
 const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
-async function rest(){throw new Error('direct_database_disabled')}){
-await configReady;
-const r=await nativeFetch(SB+'/rest/v1/'+path,{...init,cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json','Cache-Control':'no-cache',...(init.headers||{})}});
-const t=await r.text();
-if(!r.ok) throw new Error(t||String(r.status));
-return t?JSON.parse(t):null;
-}
+async function rest(){throw new Error('direct_database_disabled')}
 function getLocal(){try{return JSON.parse(sessionStorage.getItem(SESSION)||'null')}catch{return null}}
 function getToken(){try{return sessionStorage.getItem(TOKEN_KEY)||''}catch{return ''}}
 function setLocal(p,token){try{sessionStorage.setItem(SESSION,JSON.stringify(p));if(token)sessionStorage.setItem(TOKEN_KEY,token)}catch{}}
@@ -59,19 +53,18 @@ async function passOK(value){const b=await crypto.subtle.digest('SHA-256',new Te
 async function join(body){
   try{
     const d=await secureCall('student_join',{ue:'25',first_name:clean(body?.firstName),password:body?.password||''});
-    const participant=d.participant;
-    if(!participant) return json({error:'Connexion impossible.'},500);
-    setLocal(participant,d.token);
+    if(!d?.participant)return json({error:'Connexion impossible.'},500);
+    setLocal(d.participant,d.token);
     validationMap=d.state?.moduleValidations||{};
     legacyValidated=d.state?.validatedModules||[];
-    validationLoadedFor=participant.id;
+    validationLoadedFor=d.participant.id;
     setTimeout(()=>{refreshValidationUI();loadNotifications().catch(()=>{})},0);
-    return json({participant,state:d.state||{}});
+    return json({participant:d.participant,state:d.state||{}});
   }catch(e){return json({error:e?.message||'Connexion impossible.'},e?.status||500)}
 }
 async function session(){
   const part=getLocal(),token=getToken();
-  if(!part?.id||!token) return json({error:'signin_required'},401);
+  if(!part?.id||!token)return json({error:'signin_required'},401);
   try{
     const d=await secureCall('student_session',{ue:'25'});
     if(!d?.participant){clearLocal();return json({error:'signin_required'},401)}
@@ -84,24 +77,21 @@ async function session(){
   }catch(e){if(e?.status===401)clearLocal();return json({error:e?.message||'signin_required'},e?.status||500)}
 }
 async function progress(body){
-  if(!getToken()) return json({error:'signin_required'},401);
+  if(!getToken())return json({error:'signin_required'},401);
   try{
     await secureCall('student_progress',{ue:'25',moduleScores:body?.moduleScores||{},cardsSeen:Array.isArray(body?.cardsSeen)?body.cardsSeen:[],casesDone:Array.isArray(body?.casesDone)?body.casesDone:[],lastDiagnosticTopic:body?.lastDiagnosticTopic||null,attemptedTopic:body?.attemptedTopic||null});
     return json({ok:true});
   }catch(e){return json({error:e?.message||'sync_error'},e?.status||500)}
 }
 async function heartbeat(){
-  if(!getToken()) return json({error:'signin_required'},401);
+  if(!getToken())return json({error:'signin_required'},401);
   try{await secureCall('student_heartbeat',{ue:'25'});return json({ok:true})}
   catch(e){return json({error:e?.message||'sync_error'},e?.status||500)}
 }
 async function validate(method,body){
-  if(!getToken()) return json({error:'signin_required'},401);
+  if(!getToken())return json({error:'signin_required'},401);
   try{
-    if(method==='GET'){
-      const d=await secureCall('student_session',{ue:'25'});
-      return json({validatedModules:d.state?.validatedModules||[]});
-    }
+    if(method==='GET'){const d=await secureCall('student_session',{ue:'25'});return json({validatedModules:d.state?.validatedModules||[]})}
     const topic=(body?.topic||'').trim();if(!topic)return json({error:'topic_required'},400);
     const d=await secureCall('student_validate',{ue:'25',topic,type:'revise'});
     return json({validatedModules:d.validatedModules||[]});
@@ -170,11 +160,6 @@ async function notificationApi(action,extra={}){
   if(action==='student_list')return secureCall('notifications_list',{});
   if(action==='student_read')return secureCall('notifications_read',{notification_id:extra.notification_id});
   throw new Error('notification_action_invalid');
-}){
-const part=getLocal(); if(!part?.id) throw new Error('signin_required');
-const r=await nativeFetch(SB+'/functions/v1/notifications-api',{method:'POST',cache:'no-store',headers:{apikey:KEY,'Content-Type':'application/json','Cache-Control':'
-no-cache'},body:JSON.stringify({action,student_id:part.id,first_name:part.firstName,password:(sessionStorage.getItem('ifsi-coach-ue25-pass')||''),...extra})});
-const data=await r.json().catch(()=>({})); if(!r.ok) throw new Error(data.error||'notification_error'); return data;
 }
 async function loadNotifications(){
 if(!getLocal()?.id) return;
