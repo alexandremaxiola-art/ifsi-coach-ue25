@@ -1,5 +1,6 @@
 (function(){
   const SB='https://bzmwtjkjuihbrhiumdul.supabase.co';
+const KEY='sb_publishable_k2hNQO9qxjtwCMlnAMjzwg_yOiEb2RI';
   const API=SB+'/functions/v1/coach-api';
   const TOKEN_KEY='ifsi-coach-secure-token-v1';
   const SESSION='ifsi-coach-ue28-participant-v4';
@@ -28,7 +29,7 @@
   function clearLocal(){try{localStorage.removeItem(SESSION);localStorage.removeItem(TOKEN_KEY);OLD.forEach(k=>localStorage.removeItem(k))}catch{}}
   async function secureCall(action,body={}){
     const token=getToken();
-    const r=await nativeFetch(API,{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json','Cache-Control':'no-cache',...(token?{'x-coach-session':token}:{})},body:JSON.stringify({action,...body})});
+    const r=await nativeFetch(API,{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json','Cache-Control':'no-cache','apikey':KEY,...(token?{'x-coach-session':token}:{})},body:JSON.stringify({action,...body})});
     const data=await r.json().catch(()=>({}));
     if(!r.ok){const e=new Error(data.error||'secure_api_error');e.status=r.status;throw e}
     return data;
