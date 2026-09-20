@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#071d35">
   <meta name="description" content="IFSI Coach UE 1.2 S3 — Santé publique et économie de la santé">
   <title>IFSI Coach — UE 1.2 S3</title>
-  <link rel="stylesheet" href="./style.css?v=20260920-2">
+  <link rel="stylesheet" href="./style.css?v=20260920-3">
 </head>
 <body>
 <div id="login" class="login-gate">
@@ -64,41 +64,67 @@
     </header>
 
     <section id="home" class="view active">
-      <div class="hero">
-        <div>
-          <span class="eyebrow accent" id="hello">BONJOUR</span>
-          <h1>Comprendre la santé d’une population.<br><em>Relier les données, les choix et les actions.</em></h1>
-          <p>Un parcours construit à partir de tes 15 supports de cours UE 1.2 S3 : démarches de santé publique, épidémiologie, prévention, économie, régulation, environnement et climat.</p>
-          <button class="primary" data-go="diagnostic">Tester mes connaissances →</button>
+      <div class="welcome-row">
+        <div class="welcome-copy">
+          <span class="eyebrow accent" id="hello">BONJOUR · SESSION DU JOUR</span>
+          <h1>Comprendre la santé publique.<br><em>Raisonner avant de mémoriser.</em></h1>
+          <p>15 modules pour relier démarche de santé publique, épidémiologie, prévention, économie de la santé et environnement.</p>
         </div>
-        <div class="hero-visual">
-          <div class="orbit o1">ÉPIDÉMIO</div><div class="orbit o2">PRÉVENTION</div><div class="orbit o3">ÉCONOMIE</div><div class="orbit o4">ENVIRONNEMENT</div>
-          <div class="core">1.2</div>
+        <div class="home-hero-visual" role="img" aria-label="Illustration santé publique UE 1.2">
+          <svg viewBox="0 0 420 290" aria-hidden="true">
+            <defs>
+              <linearGradient id="ue12bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d776f"/><stop offset="1" stop-color="#071d35"/></linearGradient>
+            </defs>
+            <rect width="420" height="290" rx="30" fill="url(#ue12bg)"/>
+            <circle cx="210" cy="145" r="74" fill="#d8ef79"/>
+            <circle cx="210" cy="145" r="42" fill="#071d35"/>
+            <text x="210" y="156" text-anchor="middle" font-size="34" font-family="Georgia,serif" font-weight="700" fill="#fff">1.2</text>
+            <g fill="#fff" opacity=".95">
+              <circle cx="77" cy="70" r="23"/><circle cx="343" cy="74" r="23"/><circle cx="78" cy="220" r="23"/><circle cx="342" cy="218" r="23"/>
+            </g>
+            <g stroke="#d8ef79" stroke-width="5" opacity=".85">
+              <line x1="100" y1="82" x2="160" y2="115"/><line x1="320" y1="85" x2="260" y2="116"/><line x1="100" y1="208" x2="160" y2="176"/><line x1="320" y1="205" x2="260" y2="175"/>
+            </g>
+            <g font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#071d35" text-anchor="middle">
+              <text x="77" y="74">ÉPIDÉMIO</text><text x="343" y="78">PRÉVENTION</text><text x="78" y="224">ÉCONOMIE</text><text x="342" y="222">ENVIRON.</text>
+            </g>
+          </svg>
         </div>
       </div>
-      <div class="metrics">
-        <article><span>MAÎTRISE GLOBALE</span><strong id="home-score">À évaluer</strong></article>
-        <article><span>QUESTIONS TRAITÉES</span><strong id="home-questions">0</strong></article>
-        <article><span>CARTES RÉVISÉES</span><strong id="home-cards">0 / 150</strong></article>
-        <article><span>SITUATIONS TERMINÉES</span><strong id="home-cases">0 / 15</strong></article>
-      </div>
-      <div class="home-grid">
-        <article class="panel">
-          <span class="pill">PARCOURS CONSEILLÉ</span>
-          <h2>Le fil logique de l’UE 1.2</h2>
-          <div class="steps">
-            <div><b>1</b><span>Observer une population et identifier ses besoins.</span></div>
-            <div><b>2</b><span>Mesurer, comparer et interpréter les données épidémiologiques.</span></div>
-            <div><b>3</b><span>Comprendre comment le système de santé est organisé et régulé.</span></div>
-            <div><b>4</b><span>Passer à l’action : prévention, santé au travail, environnement et développement durable.</span></div>
+
+      <div class="dashboard-grid">
+        <article class="start-card">
+          <div class="card-top"><span class="pill">DIAGNOSTICS UE 1.2</span><span class="question-count">15 modules</span></div>
+          <h2>Quel thème veux-tu tester ?</h2>
+          <p>Épidémiologie, prévention, systèmes de santé, régulation, santé au travail, environnement et changement climatique.</p>
+          <div class="topic-list">
+            <span><i class="dot cyan"></i>Démarche & prévention</span>
+            <span><i class="dot lime-dot"></i>Épidémiologie</span>
+            <span><i class="dot orange"></i>Économie & système</span>
+            <span><i class="dot green-dot"></i>Environnement & santé</span>
           </div>
+          <button class="primary home-start" data-go="diagnostic">Choisir mon diagnostic <span>→</span></button>
         </article>
-        <article class="panel today">
-          <span class="pill dark">AUJOURD’HUI</span>
-          <button data-quick="learn"><b>01</b><span><strong>Réviser un module</strong><small>Fiche + 10 cartes</small></span></button>
-          <button data-quick="diagnostic"><b>02</b><span><strong>Faire un diagnostic</strong><small>10 questions ciblées</small></span></button>
-          <button data-quick="cases"><b>03</b><span><strong>Résoudre une situation</strong><small>Raisonnement santé publique</small></span></button>
-        </article>
+
+        <aside class="today-card">
+          <div class="section-title"><span>Aujourd'hui</span><small>≈ 20 min</small></div>
+          <button class="task-button" data-quick="learn">
+            <div class="task"><i>1</i><div><strong>Réviser un module</strong><small>Fiche + 10 cartes</small></div></div>
+          </button>
+          <button class="task-button" data-quick="diagnostic">
+            <div class="task current"><i>2</i><div><strong>Diagnostic au choix</strong><small>15 modules · 10 questions</small></div></div>
+          </button>
+          <button class="task-button" data-quick="cases">
+            <div class="task"><i>3</i><div><strong>Situation d'application</strong><small>15 situations disponibles</small></div></div>
+          </button>
+        </aside>
+      </div>
+
+      <div class="proof-row">
+        <div><span>MAÎTRISE GLOBALE</span><strong id="home-score">À évaluer</strong></div>
+        <div><span>QUESTIONS TRAITÉES</span><strong id="home-questions">0</strong></div>
+        <div><span>CARTES RÉVISÉES</span><strong id="home-cards">0 / 150</strong></div>
+        <div><span>SITUATIONS TERMINÉES</span><strong id="home-cases">0 / 15</strong></div>
       </div>
     </section>
 
