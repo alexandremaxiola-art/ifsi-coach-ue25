@@ -6,41 +6,42 @@
   <meta name="theme-color" content="#071d35">
   <meta name="description" content="IFSI Coach UE 1.2 S3 — Santé publique et économie de la santé">
   <title>IFSI Coach — UE 1.2 S3</title>
-  <link rel="stylesheet" href="./style.css?v=20260920-5">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><link rel="stylesheet" href="./ue12-v6.css">
 </head>
 <body>
-<div id="login" class="login-gate">
-  <div class="login-panel">
-    <div class="login-copy">
-      <span class="eyebrow">IFSI COACH · S3</span>
-      <h1>UE 1.2<br><em>Santé publique & économie de la santé</em></h1>
-      <p>Révise les démarches de santé publique, l’épidémiologie, la prévention, les systèmes de santé, la régulation et la santé environnementale.</p>
-      <div class="login-pills"><span>15 modules</span><span>150 cartes</span><span>150 questions</span><span>15 situations</span></div>
+<div id="login" class="join-gate">
+  <div class="login-visual">
+    <div class="login-visual-copy">
+      <span>IFSI COACH · S3</span>
+      <strong>UE 1.2<br><em>Santé publique & économie de la santé</em></strong>
+      <p>15 modules pour réviser la démarche de santé publique, l’épidémiologie, la prévention, les systèmes de santé, la régulation et la santé environnementale.</p>
+      <div class="login-pills"><span>150 cartes</span><span>150 questions</span><span>15 situations</span></div>
     </div>
-    <form id="login-form" class="login-card">
-      <div class="brand">✚ IFSI <b>Coach</b></div>
-      <h2>Connexion étudiant</h2>
-      <label>Prénom<input id="login-name" maxlength="30" autocomplete="given-name" required></label>
-      <label>Mot de passe promo<input id="login-password" type="password" autocomplete="current-password" required></label>
-      <button class="primary" type="submit">Entrer dans l’UE 1.2 →</button>
-      <p id="login-error" class="error"></p>
-      <small>Promotion Saintes 25–28</small>
-    </form>
   </div>
+  <form id="login-form" class="join-card">
+    <div class="brand"><span class="brand-mark">+</span><span>IFSI <b>Coach</b></span></div>
+    <span class="eyebrow accent">PROMOTION SAINTES 25–28</span>
+    <h1>Connexion étudiant</h1>
+    <p>Entre ton prénom et le mot de passe de la promotion.</p>
+    <label>Prénom<input id="login-name" maxlength="30" autocomplete="given-name" required></label>
+    <label>Mot de passe<input id="login-password" type="password" autocomplete="current-password" required></label>
+    <button class="primary-btn" type="submit">Entrer dans l’UE 1.2 →</button>
+    <p id="login-error" class="form-error"></p>
+  </form>
 </div>
 
-<div id="app" class="app hidden">
+<div id="app" class="app-shell" hidden>
   <aside class="sidebar">
-    <div class="brand">✚ IFSI <b>Coach</b></div>
+    <div class="brand"><span class="brand-mark">+</span><span>IFSI <b>Coach</b></span></div>
     <nav>
-      <button class="nav active" data-view="home">⌂ Aujourd’hui</button>
-      <button class="nav" data-view="learn">◇ Réviser</button>
-      <button class="nav" data-view="diagnostic">◎ Diagnostic</button>
-      <button class="nav" data-view="cases">✚ Situations</button>
-      <button class="nav" data-view="results">◫ Ma progression</button>
-      <a class="nav link" href="./admin/">▦ Administrateur</a>
+      <button class="nav nav-item active" data-view="home">⌂ Aujourd’hui</button>
+      <button class="nav nav-item" data-view="learn">◇ Réviser</button>
+      <button class="nav nav-item" data-view="diagnostic">◎ Diagnostic</button>
+      <button class="nav nav-item" data-view="cases">✚ Situations</button>
+      <button class="nav nav-item" data-view="results">◫ Ma progression</button>
+      <a class="nav nav-item link" href="./admin/">▦ Administrateur</a>
     </nav>
-    <div class="course-card">
+    <div class="course-card semester-card">
       <span>PARCOURS ACTIF</span>
       <strong>2e année · S3</strong>
       <small>UE 1.2 — Santé publique & économie de la santé</small>
@@ -50,7 +51,7 @@
     <div class="profile">
       <div class="avatar" id="avatar">?</div>
       <div><strong id="profile-name">Étudiant</strong><small>Saintes 25–28</small></div>
-      <button id="logout" title="Déconnexion">↪</button>
+      <button id="logout" class="logout-btn" title="Déconnexion">↪</button>
     </div>
   </aside>
 
@@ -65,58 +66,33 @@
 
     <section id="home" class="view active">
       <div class="welcome-row">
-        <div class="welcome-copy">
+        <div>
           <span class="eyebrow accent" id="hello">BONJOUR · SESSION DU JOUR</span>
           <h1>Comprendre la santé publique.<br><em>Raisonner avant de mémoriser.</em></h1>
-          <p>15 modules pour relier démarche de santé publique, épidémiologie, prévention, économie de la santé et environnement.</p>
+          <p>Un parcours construit à partir de tes 15 supports UE 1.2 S3, organisé pour réviser rapidement puis te tester.</p>
         </div>
-        <div class="home-hero-visual" role="img" aria-label="Illustration santé publique UE 1.2">
-          <svg viewBox="0 0 420 290" aria-hidden="true">
-            <defs>
-              <linearGradient id="ue12bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d776f"/><stop offset="1" stop-color="#071d35"/></linearGradient>
-            </defs>
-            <rect width="420" height="290" rx="30" fill="url(#ue12bg)"/>
-            <circle cx="210" cy="145" r="74" fill="#d8ef79"/>
-            <circle cx="210" cy="145" r="42" fill="#071d35"/>
-            <text x="210" y="156" text-anchor="middle" font-size="34" font-family="Georgia,serif" font-weight="700" fill="#fff">1.2</text>
-            <g fill="#fff" opacity=".95">
-              <circle cx="77" cy="70" r="23"/><circle cx="343" cy="74" r="23"/><circle cx="78" cy="220" r="23"/><circle cx="342" cy="218" r="23"/>
-            </g>
-            <g stroke="#d8ef79" stroke-width="5" opacity=".85">
-              <line x1="100" y1="82" x2="160" y2="115"/><line x1="320" y1="85" x2="260" y2="116"/><line x1="100" y1="208" x2="160" y2="176"/><line x1="320" y1="205" x2="260" y2="175"/>
-            </g>
-            <g font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#071d35" text-anchor="middle">
-              <text x="77" y="74">ÉPIDÉMIO</text><text x="343" y="78">PRÉVENTION</text><text x="78" y="224">ÉCONOMIE</text><text x="342" y="222">ENVIRON.</text>
-            </g>
-          </svg>
-        </div>
+        <div class="time-badge"><strong>1.2</strong><span>UE · S3</span></div>
       </div>
 
       <div class="dashboard-grid">
         <article class="start-card">
-          <div class="card-top"><span class="pill">DIAGNOSTICS UE 1.2</span><span class="question-count">15 modules</span></div>
+          <div class="card-top"><span class="pill">DIAGNOSTIC UE 1.2</span><span class="question-count">15 modules</span></div>
           <h2>Quel thème veux-tu tester ?</h2>
-          <p>Épidémiologie, prévention, systèmes de santé, régulation, santé au travail, environnement et changement climatique.</p>
+          <p>Choisis directement ton domaine de révision puis lance un diagnostic de 10 questions.</p>
           <div class="topic-list">
             <span><i class="dot cyan"></i>Démarche & prévention</span>
             <span><i class="dot lime-dot"></i>Épidémiologie</span>
             <span><i class="dot orange"></i>Économie & système</span>
             <span><i class="dot green-dot"></i>Environnement & santé</span>
           </div>
-          <button class="primary home-start" data-go="diagnostic">Choisir mon diagnostic <span>→</span></button>
+          <button class="primary-btn home-start" data-go="diagnostic">Choisir mon diagnostic →</button>
         </article>
 
         <aside class="today-card">
-          <div class="section-title"><span>Aujourd'hui</span><small>≈ 20 min</small></div>
-          <button class="task-button" data-quick="learn">
-            <div class="task"><i>1</i><div><strong>Réviser un module</strong><small>Fiche + 10 cartes</small></div></div>
-          </button>
-          <button class="task-button" data-quick="diagnostic">
-            <div class="task current"><i>2</i><div><strong>Diagnostic au choix</strong><small>15 modules · 10 questions</small></div></div>
-          </button>
-          <button class="task-button" data-quick="cases">
-            <div class="task"><i>3</i><div><strong>Situation d'application</strong><small>15 situations disponibles</small></div></div>
-          </button>
+          <div class="section-title"><span>Aujourd’hui</span><small>≈ 20 min</small></div>
+          <button class="task-button" data-quick="learn"><div class="task"><i>1</i><div><strong>Réviser un module</strong><small>Fiche + 10 cartes</small></div></div></button>
+          <button class="task-button" data-quick="diagnostic"><div class="task current"><i>2</i><div><strong>Diagnostic au choix</strong><small>10 questions ciblées</small></div></div></button>
+          <button class="task-button" data-quick="cases"><div class="task"><i>3</i><div><strong>Situation d’application</strong><small>Raisonnement santé publique</small></div></div></button>
         </aside>
       </div>
 
@@ -219,7 +195,7 @@
   <div class="modal-card"><div class="modal-head"><div><span class="eyebrow accent">MESSAGES IFSI COACH</span><h2>Messages d’Alexandre</h2></div><button id="notif-close" class="ghost">Fermer</button></div><div id="notif-list"></div></div>
 </div>
 
-<script src="./data.js?v=20260920-1"></script>
-<script src="./app.js?v=20260920-1"></script>
+<script src="./data.js?v=20260920-v6"></script>
+<script src="./app-v6.js"></script>
 </body>
 </html>
